@@ -1,0 +1,17 @@
+### `extends` Primitive Configuration
+
+**_(PrimitiveConfig)_** Base configurations for all primitives.
+
+| Property   |        Type        |     Default      | Description                                                                                                                       |
+| :--------- | :----------------: | :--------------: | :-------------------------------------------------------------------------------------------------------------------------------- |
+| `scale`    | `number \| Vertex` |       `1`        | Scaling factor of the primitive. If `Vertex` is provided, it will scale `x` and `y` dimension accordingly _(optional)_.           |
+| `rotation` |      `number`      |       `0`        | Rotation of the primitive, **in degrees** _(optional)_.                                                                           |
+| `position` |      `Vertex`      | `{ x: 0, y: 0 }` | Moving distance away from the primitive drawing center. By default, primitive will start drawing in origin `(0, 0)` _(optional)_. |
+
+:::info
+
+`scale`, `rotation` and `position` can be considered as transformation of polygon after drawn, where `position` can be considered as `transform: translate` of css to the primitive.
+
+The polygon will first be scaled, then rotated and lastly, translated.
+
+:::

@@ -1,0 +1,52 @@
+---
+sidebar_position: 1
+sidebar_label: Installtion
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import CodeBlock from "@theme/CodeBlock";
+
+# Getting Started
+
+## What is react-use-polygon?
+
+`react-use-polygon` is a collection of react hooks and utilities functions that help you to create geometry shapes, primitives and polygon.
+This package aims to provide a great developer experience and super simple api.
+As such, we want to keeps our package as light weight as possible too.
+
+We only generate the required geometry primitive for you to work on anything you want.
+We want to give you the maximum flexibility on how to display/render your own polygon.
+
+## Installtion
+
+<Tabs groupId="packageManager">
+  <TabItem value="npm" label="npm" default>
+    <CodeBlock language="bash">npm install react-use-polygon</CodeBlock>
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+    <CodeBlock language="bash">yarn add react-use-polygon</CodeBlock>
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+    <CodeBlock language="bash">pnpm add react-use-polygon</CodeBlock>
+  </TabItem>
+</Tabs>
+
+`react-use-polygon` is a standalone package and does not have any dependencies. :tada:
+
+### What you'll need
+
+_a.k.a. peer dependencies_
+
+- `react` >= 18
+- `react-dom` >= 18
+
+For `react` and `react-dom`, it should be fine with hooks version and above, i.e. `v16.8`.
+But this package is developed and tested with newer version.
+
+:::note
+
+We had added `useClient` tag on top of every client side components.
+So, you can savely use it in `rsc` or `nextjs`.
+
+:::

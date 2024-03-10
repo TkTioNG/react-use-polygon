@@ -1,0 +1,57 @@
+---
+---
+
+import MyUsePolgon from "@site/src/components/docs/MyUsePolygon";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# usePolygon
+
+Hook used to create basic polygons, both regular and irregular polygons with different configurations.
+
+It is aliased to create other regular polygons such as `useTriangle`, `useSquare`, etc.
+
+<MyUsePolgon />
+
+## Configuration
+
+**_(PolygonConfig | undefined)_** `usePolygon` accepts two different ways to configure a polygon:
+
+#### 1. Regular polygon
+
+<PolygonProps />
+
+#### 2. Irregular polygon
+
+| Property   |    Type    | Default | Description                                    |
+| :--------- | :--------: | :------ | :--------------------------------------------- |
+| `vertices` | `Vertex[]` | `[]`    | Vertices of the polygon _(at least 3 needed)_. |
+
+<PrimitiveConfig />
+
+## Returns
+
+<PrimitiveReturns configType="PolygonConfig" />
+
+## Example
+
+```ts
+import { usePolygon } from "react-use-plygon";
+
+// A pentagon with 20px of length and 5px right and 8px down from the origin
+const polygon1 = usePolygon({
+  sides: 5,
+  sideLength: 20,
+  position: { x: 5, y: 8 },
+});
+
+// An isosceles triangle with custom vertices
+const polygon2 = usePolygon({
+  vertices: [
+    { x: 0, y: 0 },
+    { x: 4, y: 0 },
+    { x: 2, y: 2 },
+  ],
+});
+```

@@ -1,0 +1,42 @@
+---
+---
+
+import MyUsePolgon from "@site/src/components/docs/MyUsePolygon";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# useArc
+
+Hook used to create arc of a circle.
+
+<MyUsePolgon />
+
+## Configuration
+
+:::note
+
+`useArc` will draw an arc counter-clockwise, starting from the right center position ~~_(just like how trigo normally works_)~~.
+
+If you wish to create an arc facing other side, please use `rotation`.
+
+:::
+
+**_(ArcConfig | undefined)_** `useArc` accepts following configurations:
+
+| Property |   Type   | Default | Description                   |
+| :------- | :------: | :------ | :---------------------------- |
+| `radius` | `number` | `100`   | Radius of the arc.            |
+| `angle`  | `number` | `60`    | Angle of the arc, in degrees. |
+
+## Returns
+
+<PrimitiveReturns configType="ArcConfig" />
+
+## Example
+
+```ts
+import { useArc } from "react-use-polygon";
+
+const arc = useArc({ radius: 80, angle: 45, rotation: 30 });
+```

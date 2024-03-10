@@ -1,0 +1,12 @@
+**_(Primitive)_** All primitive return the following properties:
+
+| Property       | Type                                                                                 | Description                                                                                       |
+| :------------- | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+| `vertices`     | `Vertex[]`                                                                           | Vertices of the primitive.                                                                        |
+| `edges`        | `Edge[]`                                                                             | Edges of the primitive.                                                                           |
+| `faces`        | `Face[]`                                                                             | Faces of the primitive.                                                                           |
+| `centroid`     | `Vertex[]`                                                                           | Centroid _(geometric center)_ of primitive.                                                       |
+| `boundingBox`  | `BoundingBox`                                                                        | Space constraint of the primitive, with properties `x`, `y`, `width`, `height`, `maxX` and `maxY` |
+| `svgPath`      | `string`                                                                             | SVG path representing the shape of the primitive.                                                 |
+| `drawToCanvas` | `(ctx: CanvasRenderingContext2D) => void`                                            | Callback that draws the primitive to a canvas context.                                            |
+| `modifyConfig` | <code>(newConfig: Partial\<{props.configType ?? "PrimitiveConfig"}\>) => void</code> | Callback to update the configuration of the primitive.                                            |

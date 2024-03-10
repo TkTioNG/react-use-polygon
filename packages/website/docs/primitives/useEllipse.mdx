@@ -1,0 +1,42 @@
+---
+---
+
+import MyUsePolgon from "@site/src/components/docs/MyUsePolygon";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# useEllipse
+
+Hook used to a basic ellipse.
+
+<MyUsePolgon />
+
+## Configuration
+
+**_(EllipseConfig | undefined)_** `useEllipse` accepts following configurations:
+
+| Property  |   Type   | Default | Description                     |
+| :-------- | :------: | :------ | :------------------------------ |
+| `xRadius` | `number` | `100`   | Semi major axis of the ellipse. |
+| `yRadius` | `number` | `60`    | Semi minor axis of the ellipse. |
+
+:::note
+
+Currently, useEllipse using `useCircle` undeer the hood by scaling the circle using `xRadius` and `yRadius` to create an ellipse.
+
+In future, we may provide more configuration for ellipse, i.e. through focal point, directrix or cone intersection.
+
+:::
+
+## Returns
+
+<PrimitiveReturns configType="EllipseConfig" />
+
+## Example
+
+```ts
+import { useEllipse } from "react-use-polygon";
+
+const ellipse = useEllipse({ xRadius: 100, yRadius: 50 });
+```

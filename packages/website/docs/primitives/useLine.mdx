@@ -1,0 +1,61 @@
+---
+---
+
+import MyUsePolgon from "@site/src/components/docs/MyUsePolygon";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# useLine
+
+Hook used to a/multiple chaining line(s).
+
+<MyUsePolgon />
+
+## Configuration
+
+:::note
+
+One line can be created either by providing 2 vertices or line length.
+
+Multiple (chaining) lines can be created by providing a list of 3 or more vertices.
+
+:::
+
+**_(LineConfig | undefined)_** `useLine` accepts following configurations:
+
+| Property   |         Type          | Default     | Description                      |
+| :--------- | :-------------------: | :---------- | :------------------------------- |
+| `vertices` |      `Vertex[]`       | `[]`        | Vertices that will form line(s). |
+| `length`   | `number \| undefined` | `undefined` | Length of a line.                |
+
+:::tip
+
+If vertices are provided, it will take precedence over length _and ignore it_.
+
+However, at least of the properties must be given for `useLine` to work.
+
+:::
+
+## Returns
+
+<PrimitiveReturns configType="LineConfig" />
+
+## Example
+
+```ts
+import { useLine } from "react-use-polygon";
+
+// Drawing a line from { x: -25, y: 0 } to { x: 25, y: 0 }
+const line = useLine({ length: 50 });
+
+// Drawing a square frame
+const lines = useLine({
+  vertices: [
+    { x: -20, y: -20 },
+    { x: 20, y: -20 },
+    { x: 20, y: 20 },
+    { x: -20, y: 20 },
+  ],
+});
+```

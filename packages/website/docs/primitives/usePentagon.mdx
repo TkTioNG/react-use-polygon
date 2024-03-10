@@ -1,0 +1,31 @@
+---
+---
+
+import RegularPolygonProps from "@site/docs/primitives/_regularPolygonProps.mdx";
+import NSidesRegPolygonNote from "@site/docs/primitives/_nSidesRegPolygonNote.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# usePentagon
+
+Hook used to create basic **regular** pentagon.
+
+## Configuration
+
+<NSidesRegPolygonNote hookName="usePentagon" shapeName="pentagon" sides="5" />
+
+<RegularPolygonProps />
+
+<PrimitiveConfig />
+
+## Returns
+
+<PrimitiveReturns configType="PolygonConfig" />
+
+## Example
+
+```ts
+import { usePentagon } from "react-use-plygon";
+
+const pentagon = usePentagon({ size: 100 });
+```

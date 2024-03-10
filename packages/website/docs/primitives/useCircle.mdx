@@ -1,0 +1,35 @@
+---
+---
+
+import MyUsePolgon from "@site/src/components/docs/MyUsePolygon";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# useCircle
+
+Hook used to a basic circle.
+
+<MyUsePolgon />
+
+## Configuration
+
+**_(CircleConfig | undefined)_** `useCircle` accepts following configurations:
+
+| Property |   Type   | Default | Description           |
+| :------- | :------: | :------ | :-------------------- |
+| `radius` | `number` | `100`   | Radius of the circle. |
+
+## Returns
+
+<PrimitiveReturns configType="CircleConfig" />
+
+## Example
+
+```ts
+import { useCircle } from "react-use-polygon";
+
+const circle = useCircle();
+// or
+const biggerCircle = useCircle({ radius: 200 });
+```
