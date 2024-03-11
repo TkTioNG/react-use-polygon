@@ -10,9 +10,7 @@ import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
 
 Hook used to a rectangle.
 
-It can be either a **convex** or **concave** rectangle. A **convex** rectangle is the usual rectangle, which every vertices points outward.
-
-On the other hand, a **concave** rectangle, the vertex of shorter sides are point inward, which will form a v-shape or upside-down dart.
+It can be created with `width` and `height` configurations.
 
 <MyUsePolgon />
 
@@ -20,26 +18,14 @@ On the other hand, a **concave** rectangle, the vertex of shorter sides are poin
 
 **_(RectangleConfig | undefined)_** `useRectangle` accepts following configurations:
 
-| Property    |   Type    | Default | Description                                               |
-| :---------- | :-------: | :------ | :-------------------------------------------------------- |
-| `tLength`   | `number`  | `50`    | Upper side length of a rectangle _(usually the shorter side)_. |
-| `bLength`   | `number`  | `75`    | Lower side length of a rectangle _(usually the longer side)_.  |
-| `isConcave` | `boolean` | `false` | Is the rectangle concave?                                      |
-
-:::tip
-
-You can create a dart/arrow by creating a **concave** rectangle and using `rotation` to change its pointing direction.
-
-:::
+| Property |   Type   | Default | Description               |
+| :------- | :------: | :------ | :------------------------ |
+| `width`  | `number` | `100`   | Width of the reactangle.  |
+| `height` | `number` | `50`    | Height of the reactangle. |
 
 :::note
 
-Multiple rectangles can be created by 2 same side lengths, either on the "slimmer" or "squarer" side.
-
-Right now, the implementation will always give **one same** rectangle by the same side lengths provided.
-We're thinking of adding an `angle` config to define the elevating angle of shorter side against the x-axis _(horizontal line)_, but hold it because it may not makes a great mathematical sense for creating a rectangle.
-
-If you need to define that angle, please try [<code>usePolygon(\{ vertices \})</code>](/docs/primitives/usePolygon#configuration) instead, by defining the vertices yourself.
+`useReactangle` always follows `usePolygon` which drawing vertex in counter-clockwise manner.
 
 :::
 
@@ -52,9 +38,6 @@ If you need to define that angle, please try [<code>usePolygon(\{ vertices \})</
 ```tsx
 import { useRectangle } from "react-use-polygon";
 
-// A convex rectangle
-const rectangle = useRectangle({ length: 50, length: 75 });
-
-// A dart/arrow poiting right
-const arrow = useRectangle({ isConcave: true, rotation: 90 });
+// A rectangle
+const rectangle = useRectangle({ length: 100, length: 50 });
 ```

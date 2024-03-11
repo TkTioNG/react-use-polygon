@@ -1,0 +1,42 @@
+---
+---
+
+import MyUsePolgon from "@site/src/components/docs/MyUsePolygon";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# useSegment
+
+Hook used to create segment of a circle.
+
+<MyUsePolgon />
+
+## Configuration
+
+:::note
+
+`useSegment` will draw a segment counter-clockwise, starting from the right center position, as `useArc`.
+
+If you wish to create a segment facing to other side, please use `rotation`.
+
+:::
+
+**_(SegmentConfig | undefined)_** `useSegment` accepts following configurations:
+
+| Property |   Type   | Default | Description                         |
+| :------- | :------: | :------ | :---------------------------------- |
+| `radius` | `number` | `100`   | Radius of outer arc of the segment. |
+| `angle`  | `number` | `60`    | Angle of the segment, in degrees.   |
+
+## Returns
+
+<PrimitiveReturns configType="SegmentConfig" />
+
+## Example
+
+```tsx
+import { useSegment } from "react-use-polygon";
+
+const segment = useSegment({ radius: 80, angle: 45, rotation: 30 });
+```

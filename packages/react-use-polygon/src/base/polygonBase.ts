@@ -68,10 +68,10 @@ export function computeRectangleVertices({
   const halfHeight = height / 2;
 
   return [
-    { x: -halfWidth, y: -halfHeight, z: 0 },
     { x: halfWidth, y: -halfHeight, z: 0 },
-    { x: halfWidth, y: halfHeight, z: 0 },
+    { x: -halfWidth, y: -halfHeight, z: 0 },
     { x: -halfWidth, y: halfHeight, z: 0 },
+    { x: halfWidth, y: halfHeight, z: 0 },
   ];
 }
 

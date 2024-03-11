@@ -8,7 +8,7 @@ sidebar_label: Rendering Primitives
 After all, you need to utilize the primitive created and rendering them out is definitely **the thing**.
 Unlike other frontend UI library, `react-use-polygon` **does not** render the primitive to UI directly for you. Or locked you into using their rendering method only.
 
-`react-use-polygon` instead wishes to give you the flexibility by provide you minimum-opinionated [primitive data](/docs/getting-started/primitive-data#primitive-properties). 
+`react-use-polygon` instead wishes to give you the flexibility by provide you minimum-opinionated [primitive data](/docs/getting-started/primitive-data#primitive-properties).
 So, it is totally up to you on how you wisht o render it. This can help us to keep this package as lightweight s possible.
 
 Despite that, it is often time better to visualize them easily and we do provide some utilities hooks or helper functions for easy rendering of primitives.
@@ -16,7 +16,7 @@ To smoothen the process, you can utilize the primitive properties, includes: `sv
 
 ## Render with SVG
 
-One of the most simpole way to visualize the primitives or even any other shapes on web is through svg image. Hence, `svgPath` and `boundingBox` properties of the primitive come in handy. 
+One of the most simpole way to visualize the primitives or even any other shapes on web is through svg image. Hence, `svgPath` and `boundingBox` properties of the primitive come in handy.
 
 ### svgPath
 
@@ -34,10 +34,11 @@ return (
 );
 ```
 
-However, you may face a weird issue, which the primitive is not being rendered completely. 
-The reason is simple, because the primitive is being drawn on origin _(0, 0)_ and some part may end up in the negative plane, [see more details](/docs/getting-started/primitive-data#bounding-box). 
+However, you may face a weird issue, which the primitive is not being rendered completely.
+The reason is simple, because the primitive is being drawn on origin _(0, 0)_ and some part may end up in the negative plane, [see more details](/docs/getting-started/primitive-data#bounding-box).
 
 You can either:
+
 1. Set the svg style to `overflow: visible` _**(not recommended)**_.
 2. Use `boundingBox` as the `viewBox` property of svg element.
 3. Translate entire polygon to purely positive plane.
@@ -65,7 +66,7 @@ const { boundingBox } = useSquare();
 
 const viewBox = useSVGViewBox(boundingBox);
 
-<svg viewBox={viewBox} />
+<svg viewBox={viewBox} />;
 ```
 
 or helper function:
@@ -73,7 +74,7 @@ or helper function:
 ```tsx
 import { computeSVGViewBox } from "react-use-polygon";
 
-<svg viewBox={computeSVGViewBox(viewBox)} />
+<svg viewBox={computeSVGViewBox(boundingBox)} />;
 ```
 
 :::tip

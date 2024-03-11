@@ -1,5 +1,5 @@
+import computeSVGViewBox from "../helperFunctions/computeSVGViewBox";
 import { Primitive } from "../primitives/usePrimitive";
-import { boundingBoxToSVGViewBox } from "../utils/common";
 
 export default function BasicSVGRenderer({
   primitive,
@@ -7,7 +7,7 @@ export default function BasicSVGRenderer({
   primitive: Primitive;
 }) {
   return (
-    <svg viewBox={boundingBoxToSVGViewBox(primitive.boundingBox)}>
+    <svg viewBox={computeSVGViewBox(primitive.boundingBox)}>
       <path d={primitive.svgPath} fill="green" />
     </svg>
   );

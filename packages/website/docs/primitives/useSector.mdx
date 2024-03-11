@@ -1,0 +1,42 @@
+---
+---
+
+import MyUsePolgon from "@site/src/components/docs/MyUsePolygon";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# useSector
+
+Hook used to create sector of a circle.
+
+<MyUsePolgon />
+
+## Configuration
+
+:::note
+
+`useSector` will draw a sector counter-clockwise, starting from the right center position, as `useArc`.
+
+If you wish to create a sector facing to other side, please use `rotation`.
+
+:::
+
+**_(SectorConfig | undefined)_** `useSector` accepts following configurations:
+
+| Property |   Type   | Default | Description                        |
+| :------- | :------: | :------ | :--------------------------------- |
+| `radius` | `number` | `100`   | Radius of outer arc of the sector. |
+| `angle`  | `number` | `60`    | Angle of the sector, in degrees.   |
+
+## Returns
+
+<PrimitiveReturns configType="SectorConfig" />
+
+## Example
+
+```tsx
+import { useSector } from "react-use-polygon";
+
+const sector = useSector({ radius: 80, angle: 45, rotation: 30 });
+```
