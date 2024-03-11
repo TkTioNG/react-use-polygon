@@ -2,6 +2,7 @@
 import { useState, useMemo, useCallback } from "react";
 
 import type { BoundingBox, Edge, Face, ModifyConfig, Vertex } from "../types";
+import { computeVertexTransformation } from "../base/primitiveBase";
 
 /**
  * Base primitive type.
@@ -27,6 +28,7 @@ export interface PrimitiveConfig {
   rotation?: number;
   position?: { x: number; y: number; z?: number };
   isClosed?: boolean;
+  isPositivePlaneClipped?: boolean;
 }
 
 /**
@@ -46,36 +48,17 @@ export default function usePrimitive(
     z?: number;
   }>(config?.position ?? { x: 0, y: 0, z: 0 });
   const [isClosed, setIsClosed] = useState<boolean>(config?.isClosed ?? true);
+  const [isPositivePlaneClipped, setIsPositivePlaneClipped] = useState<boolean>(
+    config?.isPositivePlaneClipped ?? false
+  );
 
   const transformVertex = useCallback(
     (vertex: Vertex): Vertex => {
-      // Scale first
-      const scaleValue =
-        typeof scale === "number"
-          ? { x: scale, y: scale }
-          : { x: scale.x ?? 1, y: scale.y ?? 1 };
-      let newVertex: Vertex = {
-        x: +(vertex.x * scaleValue.x).toFixed(3),
-        y: +(vertex.y * scaleValue.y).toFixed(3),
-        z: vertex.z,
-      };
-
-      // Rotate second
-      const radians = rotation * (Math.PI / 180);
-      newVertex = {
-        x: Math.cos(radians) * newVertex.x - Math.sin(radians) * newVertex.y,
-        y: Math.sin(radians) * newVertex.x + Math.cos(radians) * newVertex.y,
-        z: newVertex.z,
-      };
-
-      // Translate last
-      newVertex = {
-        x: newVertex.x + position.x,
-        y: newVertex.y + position.y,
-        z: newVertex.z ? newVertex.z + (position.z ?? 0) : newVertex.z,
-      };
-
-      return newVertex;
+      return computeVertexTransformation(vertex, {
+        scale,
+        rotation,
+        position: { x: position.x, y: position.y, z: position.z },
+      });
     },
     [position.x, position.y, position.z, rotation, scale]
   );
@@ -220,6 +203,7 @@ export default function usePrimitive(
       setRotation(newConfig?.rotation ?? rotation);
       setScale(newConfig?.scale ?? scale);
       setIsClosed(newConfig?.isClosed ?? isClosed);
+      setIsPositivePlaneClipped(newConfig?.isPositivePlaneClipped ?? isClosed);
       setVertices(newConfig?.vertices ?? vertices);
       setEdges(newConfig?.edges ?? edges);
       setFaces(newConfig?.faces ?? faces);
