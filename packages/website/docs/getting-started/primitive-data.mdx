@@ -1,0 +1,224 @@
+---
+sidebar_position: 3
+sidebar_label: Primitive data
+---
+
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# Primitive Data
+
+Primitive are the base data type of every primitive hooks in `react-use-polygon`.
+
+It defines what is the primitive, how it should look like and enable you to extend or utilize it in your programme.
+
+## Using the data
+
+**First**, create a primitive using provided hook:
+
+```ts
+const triangle = useTriangle();
+```
+
+Or for most of the time, you can use object destructuring to obtain the primitive data. If you are using multiple primitives, you can even rename them to avoid collision:
+
+```ts
+const triangle = useTriangle();
+
+// or 
+const { vertices: squareVertices } = useSquare();
+
+const { vertices: penatgonVertices } = usePentagon();
+```
+
+Now, you can access the primitive data, i.e. `vertices`, `edges` and `faces` easily using the hook.
+
+## Primitive properties
+
+<PrimitiveReturns />
+
+:::note
+
+Don't worry about those properties, they may look intimidating at first, but they are very easy to understand.
+
+:::
+
+### Vertices
+
+**`Vertex[]`**
+
+Vertex is utterly the most important part when constructing a primitive in `react-use-polygon`. `vertices` is an array of all vertices of the primitive drawn. For example, a triangle will has three (3) vertices.
+
+You may not need to use the vertices data when using `react-use-ploygon`, _which this is what we opt to (an easy API)_, but it is still good to know that vertex is defined as:
+
+```ts
+interface Vertex {
+  x: number
+  y: number
+  z?: number
+}
+```
+
+:::info
+
+Currently, `z` is kind of being ignored due to the fact that we only expose 2D api.
+
+However, in future we wish to add more complex 3D primitives to this library if possible.
+
+:::
+
+### Edges
+
+**`Edge[]`**
+
+An edge of a polygon or a segment of a primitive. It can either be a line, curve or an arc where connected by 2 vertices of that primitives.
+
+Edge is composed of 3 main types: `LineSegment`, `CurveSegment` and `ArcSegment`:
+
+```ts
+/**
+ * A straight line segment that joins 2 or more vertices.
+ */
+export interface LineSegment {
+  type: "line";
+  start: Vertex;
+  end: Vertex;
+}
+
+/**
+ * A curve segment that joins 2 or more vertices.
+ *
+ * This is a cubic bezier curve which start, c1, c2 and end will
+ * be the 4 control points of the curve.
+ *
+ * Imagine it is a C shorthand in svg path.
+ */
+export interface CurveSegment {
+  type: "curve";
+  start: Vertex;
+  c1: Vertex;
+  c2: Vertex;
+  end: Vertex;
+}
+
+/**
+ * A portion of circular path of a circle.
+ */
+export interface ArcSegment {
+  type: "arc";
+  start: Vertex;
+  end: Vertex;
+  radius: number;
+  angle: number;
+}
+
+/**
+ * Either be a line, curve or arc.
+ */
+export type Edge = LineSegment | CurveSegment | ArcSegment;
+```
+
+:::info
+
+Most of the times, you will not need to use edges directly, other than rendering the primitive.
+
+We also try to provide built-in utility hooks and helper function built-in to let use process the primitive, without you to work on lower API yourself.
+
+:::
+
+### Faces
+
+**`Face[]`**
+
+Faces are enclosed surfaces formed by `edges` of the primitive. They are an array of `Edge`:
+
+```ts
+/**
+ * Multiple edges combine that create a closed surface will form a face.
+ */
+export type Face = Edge[];
+```
+
+Again, like Edges, you're unlikely to use `faces` directly - it will more than likely be passed to a utility hook or helper function to get what you actually needed.
+
+:::note
+
+Currently, all hooks will only return at most one face as we only expose 2D primitve. Some primitive does not evenly has a face, even though they should for rendering perspective, but they may not make great mathematical sense.
+
+Hence, this may introduce culprits where the faces generated may not be what you expected.
+
+:::
+
+### Bounding Box
+
+**`BoundingBox`**
+
+It define the boundary or the dimension of the 2D primitive in a rectangular box.
+
+```ts
+/**
+ * 2D boundary of the primitive in a rectangular box.
+ */
+export interface BoundingBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+```
+
+This property can help you to rendering or visualize the primitives. For example,
+
+```tsx
+const { boundingBox } = useRectangle({ width: 100, height: 50 })
+
+// boundingBox of that rectangle will be
+{
+  x: -50,    
+  y: 50,    
+  width: 100,    
+  height: 50,    
+}
+```
+
+In which, the `x` and `y` tell you the starting point of the drawing box and its respective `width` and `height` in a 2D spaces.
+
+:::info
+
+You may find it odd that the starting point of the box is from negative area. The reason is because the origin of drawing is _(0, 0)_ on the grid, hence, the left hand side of the primitive will be on the negative plane.
+
+:::
+
+:::note
+
+For **n-sides regular polygon** and circle related primitives, i.e. arc, sector, segment, it is first drawn from right and progress counterclosk-wise.
+
+**NOTE**: First drawn point mentioned here is **not** origin, but rather where the first point is plotted. Origin is always _(0, 0)_, even with `position` configuration, we only translate the primitive after drawn.
+
+:::
+
+### modifyConfig
+
+**`(newConfig: Partial<T>) => void`**
+
+It is a callback the allow you to update the configurations of the primitive. The `T` is the repective config type of the primitive, i.e. `useCircle` -> `CircleConfig`, `useTriangle` -> `NRegularPolygonConfig`.
+
+```ts
+const { modifyConfig } = useTriangle({ size: 100 });
+
+// Move the triangle around
+modifyConfig({ position: { x: 20, y: 50 } });
+```
+
+You no need to pass every configurations into the callback, just the value that changed only. Other values will remains unchanged.
+
+For more details, please view [primitive reactivity](/docs/getting-started/creating-primitives#reactivity).
+
+### Other properties
+
+For `svgPath` and `drawOnCanvas`, please view [rendering primitives](/docs/getting-started/rendering-primitives).
+
+:::tip For TypeScript lover
+
+All the types that you may needed for your TypeScript project can be imported directly from `react-use-polygon`.
+
+:::

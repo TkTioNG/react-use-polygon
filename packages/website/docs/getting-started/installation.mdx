@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-sidebar_label: Installtion
+sidebar_label: Installation
 ---
 
 import Tabs from "@theme/Tabs";
@@ -17,6 +17,22 @@ As such, we want to keeps our package as light weight as possible too.
 
 We only generate the required geometry primitive for you to work on anything you want.
 We want to give you the maximum flexibility on how to display/render your own polygon.
+
+**As simple as this**:
+
+```tsx
+import { useTriangle, BasicSVGRenderer } from "react-use-polygon";
+
+export function Triangle() {
+  const triangle = useTriangle({ size: 100, rotation: 45 });
+
+  return (
+    <BasicSVGRenderer primitive={triangle} />
+  )
+}
+```
+
+**Outcome:**
 
 ## Installtion
 
@@ -46,7 +62,7 @@ But this package is developed and tested with newer version.
 
 :::note
 
-We had added `useClient` tag on top of every client side components.
-So, you can savely use it in `rsc` or `nextjs`.
+We had added `"useClient";` tag on top of every client side components.
+So, you can safely use it in `rsc` or `nextjs`.
 
 :::

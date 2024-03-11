@@ -1,0 +1,115 @@
+---
+sidebar_position: 2
+sidebar_label: Creating Primitives
+---
+
+# Creating Primitives
+
+Primitives in `react-use-polygon` not only just having polygon like: triangle, square, pentagon. They also include circle, curves and other shapes as well.
+
+We allow multiples ways to create a primitives, below will walk you through some of the basics to work with them.
+
+## Basic usage
+
+All primitives have their respective react hooks that can be easily consumed by your functional component.
+
+Below will create a triangle primitive. You can pass in configurations to customize the primitive:
+
+```ts
+const triangle = useTriangle();
+
+// or define the triangle size
+const triangle = useTriangle({
+  size: 100,
+});
+```
+
+With that configuration, a triangle that inscribe in a circle of diameter 100 unit will be created.
+
+
+:::tip
+
+Don't worry about the configurations for now, most hooks will have default value(s) for them. If you're interested, you can find their configurations in their respective pages below.
+
+Regarding the unit drawn, it will depends on how you wished to render the primitive, i.e. using svg path, the unit will be pixels.
+
+:::
+
+## Regular Polygons
+
+Regular polygons are the simplest types of primitive, where every sides has the same length and every vertices spread out evenly from the origin. 
+For example, a pentagon has 5 sides, each sides has the same length and each vertices is spread out by 72 degrees from the origin.
+
+You can define the dimension of a polygon using `size` _(which will be inscribed in an imaginary circle with that diameter)_, or the length of each sides using `sideLength`:
+
+```ts
+const hexagon = useHexagon({
+  size: 100,
+  // or
+  sideLength: 100, // Note these 2 will not return the same results
+});
+```
+
+We had prepared you with multiple pre-made regular polygons from 3 to 8 sides, which are: `useTriangle`, `useSquare`, `usePentagon`, `useHexagon`, `useHeptagon` and `useOctagon`.
+Of course, you can create a n-sided regular polygon yourself, by calling `usePolygon` and passing in the number of sides you want:
+
+```ts
+// A nanogon
+const nonagon = usePolygon({
+    sides: 9,
+});
+```
+
+## Irregular Polygons
+
+Irregular polygons are normally more complex polygon. They can have differences side lengths and different angles among vertices. 
+You can create your own irregular polygon by using `vertices` props with `usePolygon`:
+
+```ts
+const rightAngledTriangle = usePolygon({
+    vertices: [
+        { x: 0, y: -40 },
+        { x: 30, y: 0 },
+        { x: 0, y: 0 },
+    ],
+});
+```
+
+## Other primitives
+
+Not just the polygon, we also have various geometry primitives and other _"shapes"_, such as: `useArc`, `useSector`, `useSegment` and more. Head to the primitives section to find out more.
+
+## Common Configurations
+
+All primitives share a common set of configuration properties, such as `position`, `rotation` and `scale`:
+
+```ts
+const triangle = useTriangle({
+    side: 100, 
+    position: { x: 100, y: 100 }, 
+    rotation: 45, 
+    scale: 2,
+})
+```
+
+You can consider them as transformation **_after them being drawn_**, where `position` can be considered as `transform: translate` of css to the primitive.
+
+The polygon will first be scaled, then rotated and lastly, translated.
+
+### Reactivity
+
+Currently, these configurations are being _snapshotted_ on mount for performance concerns. You can use the `modifyConfig` callback of the primitive to update the configurations:
+
+```ts
+const triangle = useTriangle({
+    size, 
+    position, 
+    rotation, 
+    scale
+})
+
+// Any updates happens, only need to pass in configs that changed
+triangle.modifyConfig({ position, rotation, scale });
+```
+
+We hope to make all of those configurations becom fully reactivity, so you can animated by much easier without the need of using another callback.
