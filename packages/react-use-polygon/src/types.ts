@@ -51,7 +51,7 @@ export interface ArcSegment {
 export type Edge = LineSegment | CurveSegment | ArcSegment;
 
 /**
- * Multiple edges combine to form a face.
+ * Multiple edges combine that create a closed surface will form a face.
  */
 export type Face = Edge[];
 
@@ -63,8 +63,6 @@ export interface BoundingBox {
   y: number;
   width: number;
   height: number;
-  maxX: number;
-  maxY: number;
 }
 
 /**

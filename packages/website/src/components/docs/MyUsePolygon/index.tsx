@@ -1,5 +1,4 @@
 import {
-  Hello,
   usePolygon,
   BasicSVGRenderer,
 } from "../../../../../react-use-polygon/src";
@@ -13,7 +12,6 @@ export default function MyUsePolygon() {
   return (
     <div>
       <h1>MyCount: {count}</h1>
-      <Hello />
       <BasicSVGRenderer primitive={polygon} />
       <button onClick={() => setCount((c) => c + 1)}>Add Count</button>
     </div>

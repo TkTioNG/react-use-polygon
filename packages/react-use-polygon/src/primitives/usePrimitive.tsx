@@ -80,11 +80,11 @@ export default function usePrimitive(
     [position.x, position.y, position.z, rotation, scale]
   );
 
-  const newVertices = useMemo(
+  const newVertices: Vertex[] = useMemo(
     () => vertices.map((vertex) => transformVertex(vertex)),
     [vertices, transformVertex]
   );
-  const newEdges = useMemo(
+  const newEdges: Edge[] = useMemo(
     () =>
       edges.map((edge) => ({
         ...edge,
@@ -98,7 +98,7 @@ export default function usePrimitive(
     [edges, transformVertex]
   );
   /** @todo Thinking of a way to handle the faces */
-  const newFaces = useMemo(() => faces, [faces]);
+  const newFaces: Face[] = useMemo(() => faces, [faces]);
 
   const svgPath = useMemo(() => {
     let path = "";
@@ -146,7 +146,7 @@ export default function usePrimitive(
     }
   };
 
-  const centroid = useMemo(() => {
+  const centroid: Vertex = useMemo(() => {
     return newVertices.reduce(
       (acc, v) => ({
         x: acc.x + v.x / newVertices.length,
@@ -157,9 +157,9 @@ export default function usePrimitive(
     );
   }, [newVertices]);
 
-  const boundingBox = useMemo(() => {
+  const boundingBox: BoundingBox = useMemo(() => {
     if (newEdges.length === 0) {
-      return { x: 0, y: 0, width: 0, height: 0, maxX: 0, maxY: 0 };
+      return { x: 0, y: 0, width: 0, height: 0 };
     }
     let minX = newEdges[0].start.x;
     let minY = newEdges[0].start.y;
@@ -211,8 +211,6 @@ export default function usePrimitive(
       y: +minY.toFixed(5),
       width: +width.toFixed(5),
       height: +height.toFixed(5),
-      maxX: +maxX.toFixed(5),
-      maxY: +maxY.toFixed(5),
     };
   }, [newEdges]);
 

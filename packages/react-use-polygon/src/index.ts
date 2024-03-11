@@ -41,7 +41,10 @@ export type { CircleConfig } from "./primitives/useCircle";
 export type { EllipseConfig } from "./primitives/useEllipse";
 export type { KiteConfig } from "./primitives/useKite";
 export type { LineConfig } from "./primitives/useLine";
-export type { PolygonConfig } from "./primitives/usePolygon";
+export type {
+  PolygonConfig,
+  NRegularPolygonConfig,
+} from "./primitives/usePolygon";
 export type { RectangleConfig } from "./primitives/useRectangle";
 export type { SectorConfig } from "./primitives/useSector";
 export type { SegmentConfig } from "./primitives/useSegment";
