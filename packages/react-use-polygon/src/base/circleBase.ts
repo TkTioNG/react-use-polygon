@@ -1,17 +1,21 @@
 import { ArcSegment, CurveSegment, Edge, Vertex } from "../types";
-import { normalizeRadAngle } from "./common";
+import { normalizeDegAngle } from "./common";
 import { computePolygonEdges } from "./polygonBase";
 
 export function computeArcEdges({
   radius,
   angle,
   vertices,
+  rotation,
 }: {
   radius: number;
   angle: number;
   vertices?: Vertex[];
+  rotation?: number;
 }): Edge[] {
-  const normalizedAngle = normalizeRadAngle(angle);
+  // Convert angles to radian
+  const normalizedAngle = normalizeDegAngle(angle);
+  const normalizeRotation = normalizeDegAngle(rotation ?? 0);
 
   const edges: Edge[] = [];
 
@@ -23,7 +27,10 @@ export function computeArcEdges({
       y: -radius * Math.sin(normalizedAngle),
     },
     radius,
-    angle: normalizedAngle,
+    angle: normalizedAngle, // Use by svg path, angle of the arc
+    origin: { x: 0, y: 0 },
+    startAngle: 0 + normalizeRotation, // Staring angle from the positive x-axis
+    endAngle: normalizedAngle + normalizeRotation, // Ending angle from the positive x-axis
   };
 
   if (vertices?.length) {

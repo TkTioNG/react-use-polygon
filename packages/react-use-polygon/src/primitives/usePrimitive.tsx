@@ -2,7 +2,15 @@
 import { useState, useMemo, useCallback } from "react";
 
 import type { BoundingBox, Edge, Face, ModifyConfig, Vertex } from "../types";
-import { computeVertexTransformation } from "../base/primitiveBase";
+import computePrimitiveBoundingBox, {
+  computePrimitiveCentroid,
+  computePrimitiveEdges,
+  computePrimitiveFaces,
+  computePrimitiveSVGPath,
+  computePrimitiveVertices,
+  computeVertexTransformation,
+  drawPrimitiveOnCanvas,
+} from "../base/primitiveBase";
 
 /**
  * Base primitive type.
@@ -26,9 +34,8 @@ export interface PrimitiveConfig {
   faces: Face[];
   scale?: number | Vertex;
   rotation?: number;
-  position?: { x: number; y: number; z?: number };
+  position?: { x?: number; y?: number; z?: number };
   isClosed?: boolean;
-  isPositivePlaneClipped?: boolean;
 }
 
 /**
@@ -43,14 +50,11 @@ export default function usePrimitive(
   const [scale, setScale] = useState<number | Vertex>(config?.scale ?? 1);
   const [rotation, setRotation] = useState<number>(config?.rotation ?? 0);
   const [position, setPosition] = useState<{
-    x: number;
-    y: number;
+    x?: number;
+    y?: number;
     z?: number;
   }>(config?.position ?? { x: 0, y: 0, z: 0 });
   const [isClosed, setIsClosed] = useState<boolean>(config?.isClosed ?? true);
-  const [isPositivePlaneClipped, setIsPositivePlaneClipped] = useState<boolean>(
-    config?.isPositivePlaneClipped ?? false
-  );
 
   const transformVertex = useCallback(
     (vertex: Vertex): Vertex => {
@@ -64,138 +68,32 @@ export default function usePrimitive(
   );
 
   const newVertices: Vertex[] = useMemo(
-    () => vertices.map((vertex) => transformVertex(vertex)),
+    () => computePrimitiveVertices(vertices, transformVertex),
     [vertices, transformVertex]
   );
   const newEdges: Edge[] = useMemo(
-    () =>
-      edges.map((edge) => ({
-        ...edge,
-        start: transformVertex(edge.start),
-        end: transformVertex(edge.end),
-        ...(edge.type === "curve" && {
-          c1: transformVertex(edge.c1),
-          c2: transformVertex(edge.c2),
-        }),
-      })),
+    () => computePrimitiveEdges(edges, transformVertex),
     [edges, transformVertex]
   );
-  /** @todo Thinking of a way to handle the faces */
-  const newFaces: Face[] = useMemo(() => faces, [faces]);
-
-  const svgPath = useMemo(() => {
-    let path = "";
-    if (newEdges.length > 0) {
-      path += `M ${newEdges[0].start.x},${newEdges[0].start.y} `;
-      newEdges.forEach((edge) => {
-        if (edge.type === "line") {
-          path += `L ${edge.end.x},${edge.end.y} `;
-        } else if (edge.type === "curve") {
-          path += `C ${edge.c1.x},${edge.c1.y} ${edge.c2.x},${edge.c2.y} ${edge.end.x},${edge.end.y} `;
-        } else if (edge.type === "arc") {
-          path += `A ${edge.radius},${edge.radius} 0 ${
-            edge.angle > Math.PI ? 1 : 0
-          } 0  ${edge.end.x},${edge.end.y} `;
-        }
-      });
-    }
-    if (isClosed && path) {
-      path += "Z";
-    }
-    return path.trim();
-  }, [newEdges, isClosed]);
-
-  const drawOnCanvas = (ctx: CanvasRenderingContext2D) => {
-    if (newEdges.length > 0) {
-      ctx.beginPath();
-      ctx.moveTo(newEdges[0].start.x, newEdges[0].start.y);
-      newEdges.forEach((edge) => {
-        if (edge.type === "line") {
-          ctx.lineTo(edge.end.x, edge.end.y);
-        } else if (edge.type === "curve") {
-          ctx.bezierCurveTo(
-            edge.c1.x,
-            edge.c1.y,
-            edge.c2.x,
-            edge.c2.y,
-            edge.end.x,
-            edge.end.y
-          );
-        }
-      });
-      if (isClosed) {
-        ctx.closePath();
-      }
-    }
-  };
+  const newFaces: Face[] = useMemo(() => computePrimitiveFaces(faces), [faces]);
 
   const centroid: Vertex = useMemo(() => {
-    return newVertices.reduce(
-      (acc, v) => ({
-        x: acc.x + v.x / newVertices.length,
-        y: acc.y + v.y / newVertices.length,
-        z: acc.z ? acc.z + (v?.z ?? 0) / newVertices.length : acc.z,
-      }),
-      { x: 0, y: 0, z: 0 }
-    );
+    return computePrimitiveCentroid(newVertices);
   }, [newVertices]);
 
   const boundingBox: BoundingBox = useMemo(() => {
-    if (newEdges.length === 0) {
-      return { x: 0, y: 0, width: 0, height: 0 };
-    }
-    let minX = newEdges[0].start.x;
-    let minY = newEdges[0].start.y;
-    let maxX = newEdges[0].start.x;
-    let maxY = newEdges[0].start.y;
-
-    newEdges.forEach((edge) => {
-      const points: Vertex[] = [edge.start, edge.end];
-      if (edge.type === "curve") {
-        points.push(edge.c1, edge.c2);
-      }
-      if (edge.type === "arc") {
-        // TODO: take in consideration of position, rotation and scale
-        if (edge.angle > Math.PI / 2) {
-          // Second, Third & Fourth quadrant
-          points.push({
-            x: edge.radius * Math.cos(edge.angle),
-            y: -edge.radius,
-          });
-        }
-        if (edge.angle > Math.PI) {
-          // Third & Fourth quadrant
-          points.push({
-            x: -edge.radius,
-            y: edge.radius,
-          });
-        }
-        if (edge.angle > (Math.PI * 3) / 2) {
-          // Fourth quadrant
-          points.push({
-            x: 0,
-            y: edge.radius,
-          });
-        }
-      }
-      points.forEach((point) => {
-        if (point.x < minX) minX = point.x;
-        if (point.x > maxX) maxX = point.x;
-        if (point.y < minY) minY = point.y;
-        if (point.y > maxY) maxY = point.y;
-      });
-    });
-
-    const width = maxX - minX;
-    const height = maxY - minY;
-
-    return {
-      x: +minX.toFixed(5),
-      y: +minY.toFixed(5),
-      width: +width.toFixed(5),
-      height: +height.toFixed(5),
-    };
+    return computePrimitiveBoundingBox(newEdges);
   }, [newEdges]);
+
+  const svgPath = useMemo(() => {
+    return computePrimitiveSVGPath(newEdges, isClosed);
+  }, [newEdges, isClosed]);
+
+  const drawOnCanvas = useCallback(
+    (ctx: CanvasRenderingContext2D) =>
+      drawPrimitiveOnCanvas(ctx, newEdges, isClosed),
+    [newEdges, isClosed]
+  );
 
   const modifyConfig = useCallback(
     (newConfig?: Partial<PrimitiveConfig>) => {
@@ -203,7 +101,6 @@ export default function usePrimitive(
       setRotation(newConfig?.rotation ?? rotation);
       setScale(newConfig?.scale ?? scale);
       setIsClosed(newConfig?.isClosed ?? isClosed);
-      setIsPositivePlaneClipped(newConfig?.isPositivePlaneClipped ?? isClosed);
       setVertices(newConfig?.vertices ?? vertices);
       setEdges(newConfig?.edges ?? edges);
       setFaces(newConfig?.faces ?? faces);

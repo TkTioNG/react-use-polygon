@@ -40,7 +40,10 @@ export interface ArcSegment {
   start: Vertex;
   end: Vertex;
   radius: number;
-  angle: number;
+  angle: number; // Use by svg path, angle of the arc
+  origin: Vertex;
+  startAngle: number; // Staring angle from the positive x-axis
+  endAngle: number; // Ending angle from the positive x-axis
 }
 
 /**

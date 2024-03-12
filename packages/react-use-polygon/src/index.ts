@@ -13,9 +13,15 @@ import useCircle from "./primitives/useCircle";
 import useEllipse from "./primitives/useEllipse";
 import useSector from "./primitives/useSector";
 import useSegment from "./primitives/useSegment";
+
+import useSVGViewBox from "./utilityHooks/useSVGViewBox";
+
+import computeSVGViewBox from "./helperFunctions/computeSVGViewBox";
+
 import BasicSVGRenderer from "./renderers/BasicSVGRenderer";
 
 export {
+  /** Primitive */
   usePolygon,
   useTriangle,
   useSquare,
@@ -31,6 +37,14 @@ export {
   useEllipse,
   useSector,
   useSegment,
+
+  /** Utility hooks */
+  useSVGViewBox,
+
+  /** Helper functions */
+  computeSVGViewBox,
+
+  /** Renderers */
   BasicSVGRenderer,
 };
 

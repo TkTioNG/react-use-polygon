@@ -2,7 +2,6 @@
 import usePrimitive, { Primitive, PrimitiveConfig } from "./usePrimitive";
 import { Edge, ModifyConfig, Vertex } from "../types";
 import { useCallback, useMemo, useState } from "react";
-import { normalizeDegAngle } from "../base/common";
 import { computeArcEdges } from "../base/circleBase";
 
 export interface ArcBaseConfig
@@ -19,9 +18,7 @@ export function useArcBase(
   config?: ArcBaseConfig
 ): Primitive & ModifyConfig<ArcConfig> {
   const [radius, setRadius] = useState<number>(config?.radius ?? 100);
-  const [angle, setAngle] = useState<number>(
-    normalizeDegAngle(config?.angle ?? 60)
-  );
+  const [angle, setAngle] = useState<number>(config?.angle ?? 60);
   const [isClosed, setIsClosed] = useState<boolean>(config?.isClosed ?? true);
   const [vertices, setVertices] = useState<Vertex[]>(config?.vertices ?? []);
 
@@ -41,9 +38,7 @@ export function useArcBase(
     (newConfig?: Partial<ArcBaseConfig>) => {
       const newRadius = newConfig?.radius ?? radius;
       const newAngle =
-        typeof newConfig?.angle === "number"
-          ? normalizeDegAngle(newConfig.angle)
-          : angle;
+        typeof newConfig?.angle === "number" ? newConfig.angle : angle;
       const newVertices = newConfig?.vertices ?? vertices;
 
       const newEdges = computeArcEdges({
