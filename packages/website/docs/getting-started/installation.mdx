@@ -6,6 +6,8 @@ sidebar_label: Installation
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import CodeBlock from "@theme/CodeBlock";
+import SimpleDemo from "@site/src/components/docs/SimpleDemo"
+import SimpleDemoSource from '!!raw-loader!@site/src/components/docs/SimpleDemo';
 
 # Getting Started
 
@@ -20,19 +22,11 @@ We want to give you the maximum flexibility on how to display/render your own po
 
 **As simple as this**:
 
-```tsx
-import { useTriangle, BasicSVGRenderer } from "react-use-polygon";
-
-export function Triangle() {
-  const triangle = useTriangle({ size: 100, rotation: 45 });
-
-  return (
-    <BasicSVGRenderer primitive={triangle} />
-  )
-}
-```
+<CodeBlock language="tsx">{SimpleDemoSource}</CodeBlock>
 
 **Outcome:**
+
+<SimpleDemo />
 
 ## Installtion
 

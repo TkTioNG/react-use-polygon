@@ -27,7 +27,7 @@ const triangle = useTriangle();
 // or 
 const { vertices: squareVertices } = useSquare();
 
-const { vertices: penatgonVertices } = usePentagon();
+const { vertices: pentagonVertices } = usePentagon();
 ```
 
 Now, you can access the primitive data, i.e. `vertices`, `edges` and `faces` easily using the hook.
@@ -108,7 +108,10 @@ export interface ArcSegment {
   start: Vertex;
   end: Vertex;
   radius: number;
-  angle: number;
+  angle: number; // Use by svg path, angle of the arc
+  origin: Vertex;
+  startAngle: number; // Staring angle from the positive x-axis
+  endAngle: number; // Ending angle from the positive x-axis
 }
 
 /**

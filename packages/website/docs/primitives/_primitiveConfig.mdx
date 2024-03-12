@@ -7,16 +7,11 @@
 | `scale`                  | `number \| Vertex` |       `1`        | Scaling factor of the primitive. If `Vertex` is provided, it will scale `x` and `y` dimension accordingly _(optional)_.           |
 | `rotation`               |      `number`      |       `0`        | Rotation of the primitive, **in degrees** _(optional)_.                                                                           |
 | `position`               |      `Vertex`      | `{ x: 0, y: 0 }` | Moving distance away from the primitive drawing center. By default, primitive will start drawing in origin `(0, 0)` _(optional)_. |
-| `isPositivePlaneClipped` |     `boolean`      |     `false`      | If true, every vertices of the primitive will be translate to the positive plane.                                                 |
 
 :::info
 
 `scale`, `rotation` and `position` can be considered as transformation of polygon after drawn, where `position` can be considered as `transform: translate` of css to the primitive.
 
 The polygon will first be scaled, then rotated and lastly, translated.
-
-If `isPositivePlaneClipped` is set as `true`, the entire primitives will be clipped onto or translated to positive plane.
-Every vertices will always has positive x and y value only.
-This positive plane clipping translation will only happen after all three `scale`, `rotation`, and `position` transformation, please refer [rendering section](/docs/getting-started/rendering-primitives#translate-entire-polygon-to-purely-positive-plane) for this motive.
 
 :::

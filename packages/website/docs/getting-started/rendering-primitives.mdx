@@ -9,14 +9,11 @@ After all, you need to utilize the primitive created and rendering them out is d
 Unlike other frontend UI library, `react-use-polygon` **does not** render the primitive to UI directly for you. Or locked you into using their rendering method only.
 
 `react-use-polygon` instead wishes to give you the flexibility by provide you minimum-opinionated [primitive data](/docs/getting-started/primitive-data#primitive-properties).
-So, it is totally up to you on how you wisht o render it. This can help us to keep this package as lightweight s possible.
-
-Despite that, it is often time better to visualize them easily and we do provide some utilities hooks or helper functions for easy rendering of primitives.
 To smoothen the process, you can utilize the primitive properties, includes: `svgPath`, `drawOnCanvas` and `boundingBox`.
 
 ## Render with SVG
 
-One of the most simpole way to visualize the primitives or even any other shapes on web is through svg image. Hence, `svgPath` and `boundingBox` properties of the primitive come in handy.
+One of the most simplest way to visualize the primitives or even any other shapes on web is through svg image. Hence, `svgPath` and `boundingBox` properties of the primitive come in handy.
 
 ### svgPath
 
@@ -41,7 +38,7 @@ You can either:
 
 1. Set the svg style to `overflow: visible` _**(not recommended)**_.
 2. Use `boundingBox` as the `viewBox` property of svg element.
-3. Translate entire polygon to purely positive plane.
+3. Clip entire polygon onto positive plane.
 4. Use a simple svg renderer.
 
 Apart from 1, which we not recommend, 2, 3 and 4 can be done easily yourself, or using our built-in utilities.
@@ -57,14 +54,14 @@ const { x, y, width, height } = boundingBox;
 const viewBox = `${x} ${y} ${width} ${height}`;
 ```
 
-You can convert the above to a function or use our built-in hook
+You can convert the above to a function or use our built-in hook:
 
 ```tsx
 import { useSquare, useSVGViewBox } from "react-use-polygon";
 
 const { boundingBox } = useSquare();
 
-const viewBox = useSVGViewBox(boundingBox);
+const viewBox = useSVGViewBox({ boundingBox });
 
 <svg viewBox={viewBox} />;
 ```
@@ -74,19 +71,128 @@ or helper function:
 ```tsx
 import { computeSVGViewBox } from "react-use-polygon";
 
-<svg viewBox={computeSVGViewBox(boundingBox)} />;
+<svg viewBox={computeSVGViewBox({ boundingBox })} />;
 ```
 
 :::tip
 
-`boundingBox` of primitive doesw not take into account of line stroke. Hence, when converted to svg `viewBox`, line stroke may only be partially shown.
+Rather than pass in the props as `{ boundingBox }`, you can pass in primitive or even an array or primitives as well.
 
-To fix this issue, you can utilize `padding` props in those function, which will make the box larger to accomodate the line stroke of svg path.
+```tsx
+const reactangle = useRectangle();
+const circle = useCircle({ position: { x: 50, y: 50 } });
 
-Please refer [useSVGViewBox](/docs/utilities/useSVGViewBox).
+// Directly pass in primitive
+const viewBox = useSVGViewBox(reactangle);
+
+// Or multiple primitives
+const combinedViewBox = useSVGViewBox([reactangle, circle]);
+```
+
+Passing in an array is very helpful when you wish to render **multiple** primitive paths inside one svg element.
 
 :::
 
-#### Translate entire polygon to purely positive plane
+:::info
+
+`boundingBox` of primitive does not take into account of line stroke. Hence, when converted to svg `viewBox`, line stroke may only be partially shown.
+
+To fix this issue, you can utilize `padding` props in those function, which will make the box larger to accomodate the line stroke of svg path.
+
+Please refer [useSVGViewBox](/docs/utility-hooks/useSVGViewBox).
+
+:::
+
+#### Clip entire polygon onto positive plane
+
+Another way is to clip the entire primitive _(or at least the interested part)_ onto the positive plane by using `position` configurations. For example,
+
+**Before:**
+
+```tsx
+import { useCircle } from "react-use-polygon";
+
+// viewBox: "-100 -100 200 200"
+const circle = useCircle({ radius: 100 });
+```
+
+**After:**
+
+```tsx
+import { useCircle } from "react-use-polygon";
+
+// viewBox: "0 0 200 200"
+const circle = useCircle({ radius: 100, position: { x: 100, y: 100} });
+```
+
+As you can see that, adding a `position` config can move the polygon to you desired location on the plane.
+
+You can even hide part of the faces by moving them to negative plane if you don't want to show on the negative part in the `viewBox`.
 
 #### Use a simple svg renderer
+
+You can create your own rendering component or use one of our built-in svg renderes.
+
+```tsx
+import { usePolygon, BasicSVGRenderer } from "react-use-polygon";
+
+export function MyComponent() {
+  const triangle = usePolygon({ sides: 3 });
+  const square = usePolygon({ sides: 4 });
+  const pentagon = usePolygon({ sides: 5 });
+
+  return (
+    <BasicSVGRender
+      className="MyComponent"
+      primitives={[triangle, square, pentagon]} // You can put it one or an array of primitives
+      pathProps={{ fill: "blue", stroke: "red", strokeWidth: 2 }} // Path props
+      viewBoxOptions={{ padding: 8 }}
+      // ... other SVG props
+    />
+  )
+}
+```
+
+:::note
+
+Built-in renderers are very simple component that help you getting started easier. You don't even need to use them too.
+
+For more, please have a looks at [built-in renderers](/docs/renderers).
+
+:::
+
+## Render on canvas
+
+You can too render those primitives on a canvas. The primitive has a built-in callback, `drawOnCanvas`, that serve this exact purpose.
+
+### drawOnCanvas
+
+This callback takes in a `CanvasRenderingContext2D` canvas context and draw primitive on it.
+
+```tsx
+// Triangle primitive
+const { drawOnCanvas } = useTriangle();
+
+// Canvas ref
+const canvasRef = useRef();
+
+// Getting canvas context
+const ctx = canvasRef.current.getContext("2d");
+
+// Draw on canvas
+drawOnCanvas(ctx)
+
+// Add a stroke or fill or other operation as desired
+ctx.stroke(); // or ctx.fill();
+
+// Binding canvas to a ref
+<canvas ref={canvasRef} />
+```
+
+:::info 
+
+`drawOnCanvas` **does not** handle the drawing cycle for you. It will only draw **once** for each calls.
+
+If you want to constantly animate it, you will need to trigger `drawInCanvas` on every frame or changes.
+
+:::
