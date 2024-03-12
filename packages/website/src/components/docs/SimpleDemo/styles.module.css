@@ -1,7 +1,4 @@
-.simpleTriangle {
-  background-color: var(--ifm-color-primary);
-  border-radius: 16px;
-
+.simpleDemo {
   path {
     stroke: var(--ifm-color-secondary);
     stroke-width: 3;

@@ -1,4 +1,4 @@
-.simpleArc {
+.simpleCircle {
   path {
     stroke: var(--ifm-color-secondary);
     stroke-width: 6;

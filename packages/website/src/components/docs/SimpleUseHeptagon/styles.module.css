@@ -1,7 +1,7 @@
-.simpleArc {
+.simpleHeptagon {
   path {
     stroke: var(--ifm-color-secondary);
-    stroke-width: 6;
+    stroke-width: 5;
     fill: none;
   }
 }
