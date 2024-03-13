@@ -3,7 +3,7 @@ import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
-  title: "Use Polygon",
+  title: "react-use-polygon",
   tagline: "Geometry hooks for React",
   favicon: "img/favicon.ico",
 

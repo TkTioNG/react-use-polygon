@@ -29,17 +29,33 @@ function HomepageHeader() {
   );
 }
 
-export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
+const LINKS = [{ label: "DOCUMENTATION", url: "/docs/getting-started" }];
+
+function OuterFrame() {
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
+    <div className={styles.outerFrame}>
+      <div className={styles.logoName}>Hello</div>
+      <div className={styles.description}>Geometry hooks for react</div>
+      <div className={styles.links}>
+        <ul>
+          {LINKS.map((link) => (
+            <li key={link.label}>
+              <Link to={link.url}>{link.label}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default function Home(): JSX.Element {
+  return (
+    <>
       <HomepageHeader />
       <main>
         <HomepageFeatures />
       </main>
-    </Layout>
+    </>
   );
 }

@@ -1,0 +1,18 @@
+svg.demoSVG {
+  background-color: var(--ifm-color-primary);
+  border-radius: 16px;
+}
+
+svg.demoSVG > text {
+  fill: white;
+  font-family: "Spline Sans Mono";
+  font-size: 16px;
+  font-weight: 600;
+  white-space: pre;
+}
+
+svg.demoSVG > path {
+  stroke: var(--ifm-color-secondary);
+  stroke-width: 6;
+  fill: none;
+}

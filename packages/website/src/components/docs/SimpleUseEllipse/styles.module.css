@@ -1,7 +1,0 @@
-.simpleEllipse {
-  path {
-    stroke: var(--ifm-color-secondary);
-    stroke-width: 5;
-    fill: none;
-  }
-}

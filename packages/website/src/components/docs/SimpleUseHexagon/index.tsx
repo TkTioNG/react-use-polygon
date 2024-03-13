@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, useHexagon } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { useHexagon } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUseHexagon() {
-  const hexagon = useHexagon({ size: 100 });
+  const hexagon = useHexagon({ size: 240 });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleHexagon)}
-      primitives={hexagon}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-120">
-        {"useHexagon({ size: 100 });"}
+    <DocsSVGRenderer primitives={hexagon}>
+      <text x="-433" y="-172">
+        {"useHexagon({ size: 240 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

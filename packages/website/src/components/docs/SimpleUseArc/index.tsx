@@ -1,24 +1,18 @@
-import { BasicSVGRenderer, useArc } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { useArc } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUseArc() {
-  const arc1 = useArc({ angle: 120 });
-  const arc2 = useArc({ angle: 235, rotation: -108, position: { x: 400 } });
+  const arc1 = useArc({ angle: 120, position: { x: -200 } });
+  const arc2 = useArc({ angle: 235, rotation: -108, position: { x: 200 } });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleArc)}
-      primitives={[arc1, arc2]}
-      viewBoxOptions={{ padding: { x: 150, y: 100 } }}
-    >
-      <text x="-230" y="-170">
+    <DocsSVGRenderer primitives={[arc1, arc2]}>
+      <text x="-433" y="-172">
         {"useArc({ angle: 120 });"}
       </text>
-      <text x="250" y="180">
+      <text x="60" y="184">
         {"useArc({ angle: 235, rotation: -108 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

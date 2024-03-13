@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, useEllipse } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { useEllipse } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUseEllipse() {
-  const ellipse = useEllipse({ xRadius: 100, yRadius: 60 });
+  const ellipse = useEllipse({ xRadius: 150, yRadius: 80 });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleEllipse)}
-      primitives={ellipse}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-120">
-        {"useEllipse({ xRadius: 100, yRadius: 60 });"}
+    <DocsSVGRenderer primitives={ellipse}>
+      <text x="-433" y="-172">
+        {"useEllipse({ xRadius: 150, yRadius: 80 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

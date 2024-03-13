@@ -1,7 +1,0 @@
-.simplePolygon {
-  path {
-    stroke: var(--ifm-color-secondary);
-    stroke-width: 3;
-    fill: none;
-  }
-}

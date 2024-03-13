@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, useOctagon } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { useOctagon } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUseOctagon() {
-  const octagon = useOctagon({ size: 100 });
+  const octagon = useOctagon({ sideLength: 100 });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleOctagon)}
-      primitives={octagon}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-120">
-        {"useOctagon({ size: 100 });"}
+    <DocsSVGRenderer primitives={octagon}>
+      <text x="-433" y="-172">
+        {"useOctagon({ sideLength: 100 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

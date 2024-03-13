@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, useRectangle } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { useRectangle } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUseRectangle() {
-  const rectangle = useRectangle({ width: 120, height: 80 });
+  const rectangle = useRectangle({ width: 250, height: 150 });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleRectangle)}
-      primitives={rectangle}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-120">
-        {"useRectangle({ size: 100 });"}
+    <DocsSVGRenderer primitives={rectangle}>
+      <text x="-433" y="-172">
+        {"useRectangle({ width: 250, height: 150 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

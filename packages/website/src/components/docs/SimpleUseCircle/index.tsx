@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, useCircle } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { useCircle } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUseCircle() {
-  const circle = useCircle({ radius: 100 });
+  const circle = useCircle({ radius: 120 });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleCircle)}
-      primitives={circle}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-160">
-        {"useCircle({ radius: 100 });"}
+    <DocsSVGRenderer primitives={circle}>
+      <text x="-433" y="-172">
+        {"useCircle({ radius: 120 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

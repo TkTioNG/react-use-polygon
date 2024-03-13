@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, useTriangle } from "react-use-polygon";
-import clsx from "clsx";
+import { useTriangle } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
-import styles from "./styles.module.css";
-
-export default function SimpleUseTriangle() {
-  const triangle = useTriangle({ size: 100 });
+export default function SimpleDemoLogo() {
+  const triangle = useTriangle({ sideLength: 200, position: { y: 30 } });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleTriangle)}
-      primitives={triangle}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-120">
-        {"useTriangle({ size: 100 });"}
+    <DocsSVGRenderer primitives={triangle}>
+      <text x="-433" y="-172">
+        {"useTriangle({ sideLength: 200 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

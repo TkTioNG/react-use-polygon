@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, useHeptagon } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { useHeptagon } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUseHeptagon() {
-  const heptagon = useHeptagon({ size: 100 });
+  const heptagon = useHeptagon({ sideLength: 100 });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleHeptagon)}
-      primitives={heptagon}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-120">
-        {"useHeptagon({ size: 100 });"}
+    <DocsSVGRenderer primitives={heptagon}>
+      <text x="-433" y="-172">
+        {"useHeptagon({ sideLength: 100 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

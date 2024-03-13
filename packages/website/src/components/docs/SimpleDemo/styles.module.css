@@ -1,4 +1,7 @@
 .simpleDemo {
+  background-color: var(--ifm-color-primary);
+  border-radius: 16px;
+
   path {
     stroke: var(--ifm-color-secondary);
     stroke-width: 3;

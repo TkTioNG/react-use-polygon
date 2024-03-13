@@ -46,15 +46,3 @@
   src: url("/fonts/SplineSansMono/SplineSansMono-SemiBold.ttf")
     format("truetype");
 }
-
-svg.demo-svg {
-  background-color: var(--ifm-color-primary);
-  border-radius: 16px;
-}
-
-svg.demo-svg > text {
-  fill: white;
-  font-family: "Spline Sans Mono";
-  font-size: 16px;
-  font-weight: 600;
-}

@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, usePentagon } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { usePentagon } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUsePentagon() {
-  const pentagon = usePentagon({ size: 100 });
+  const pentagon = usePentagon({ size: 220 });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simplePentagon)}
-      primitives={pentagon}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-120">
-        {"usePentagon({ size: 100 });"}
+    <DocsSVGRenderer primitives={pentagon}>
+      <text x="-433" y="-172">
+        {"usePentagon({ size: 220 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }

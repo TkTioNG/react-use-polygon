@@ -1,20 +1,14 @@
-import { BasicSVGRenderer, useSquare } from "react-use-polygon";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
+import { useSquare } from "react-use-polygon";
+import DocsSVGRenderer from "../../DocsSVGRenderer";
 
 export default function SimpleUseSquare() {
-  const square = useSquare({ size: 100 });
+  const square = useSquare({ size: 250 });
 
   return (
-    <BasicSVGRenderer
-      className={clsx("demo-svg", styles.simpleSquare)}
-      primitives={square}
-      viewBoxOptions={{ padding: { x: 350, y: 90 } }}
-    >
-      <text x="-430" y="-120">
-        {"useSquare({ size: 100 });"}
+    <DocsSVGRenderer primitives={square}>
+      <text x="-433" y="-172">
+        {"useSquare({ size: 250 });"}
       </text>
-    </BasicSVGRenderer>
+    </DocsSVGRenderer>
   );
 }
