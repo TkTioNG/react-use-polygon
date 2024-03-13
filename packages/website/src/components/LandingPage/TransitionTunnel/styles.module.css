@@ -1,0 +1,22 @@
+.transitionTunnel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+}
+
+.tunnelLane {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 5px solid black;
+  width: 100%;
+}
+
+.tunnelRing {
+  fill: none;
+  stroke: white;
+  stroke-width: 1px;
+}

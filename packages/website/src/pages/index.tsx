@@ -2,8 +2,9 @@ import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import Heading from "@theme/Heading";
+import HomepageFeatures from "@site/src/components/HomepageFeatures";
+import LandingPage from "@site/src/components/LandingPage";
 
 import styles from "./index.module.css";
 
@@ -29,33 +30,11 @@ function HomepageHeader() {
   );
 }
 
-const LINKS = [{ label: "DOCUMENTATION", url: "/docs/getting-started" }];
-
-function OuterFrame() {
-  return (
-    <div className={styles.outerFrame}>
-      <div className={styles.logoName}>Hello</div>
-      <div className={styles.description}>Geometry hooks for react</div>
-      <div className={styles.links}>
-        <ul>
-          {LINKS.map((link) => (
-            <li key={link.label}>
-              <Link to={link.url}>{link.label}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
 export default function Home(): JSX.Element {
   return (
     <>
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
+      <LandingPage />
+      <HomepageFeatures />
     </>
   );
 }

@@ -46,3 +46,9 @@
   src: url("/fonts/SplineSansMono/SplineSansMono-SemiBold.ttf")
     format("truetype");
 }
+
+@font-face {
+  font-family: "Seaweed Script";
+  font-display: swap;
+  src: url("/fonts/SeaweedScript/SeaweedScript-Regular.ttf") format("truetype");
+}
