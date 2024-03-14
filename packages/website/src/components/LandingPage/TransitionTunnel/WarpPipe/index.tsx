@@ -9,7 +9,8 @@ import { motion } from "framer-motion";
 
 import styles from "./styles.module.css";
 
-export function WarpPipeBack(props: any) {
+export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
+  // Back
   const headBackRingFace = useSectorCrescent({
     radius: 125,
     crescentRadius: 70,
@@ -40,38 +41,7 @@ export function WarpPipeBack(props: any) {
     height: 200,
   });
 
-  return (
-    <motion.g viewBox="-400 -200 800 400">
-      <motion.path
-        {...props}
-        className={styles.pipeBody}
-        d={backPipeBody.svgPath}
-      />
-      <motion.path
-        {...props}
-        className={styles.pipeRing}
-        d={headPipeRingBody.svgPath}
-      />
-      <motion.path
-        {...props}
-        className={styles.backInnerFace}
-        d={headInnerFace.svgPath}
-      />
-      <motion.path
-        {...props}
-        className={styles.backInnerShadow}
-        d={headInnerShadow.svgPath}
-      />
-      <motion.path
-        {...props}
-        className={styles.backOpening}
-        d={headBackRingFace.svgPath}
-      />
-    </motion.g>
-  );
-}
-
-export function WarpPipeFront(props: any) {
+  // Front
   const headFrontRingFace = useSectorCrescent({
     radius: 125,
     crescentRadius: 70,
@@ -127,58 +97,66 @@ export function WarpPipeFront(props: any) {
     rotation: 90,
     position: { x: 190 },
   });
-
   return (
-    <motion.g viewBox="-400 -200 800 400">
+    // <svg viewBox="-400 -200 800 400">
+    //   <WarpPipeBack />
+    //   <WarpPipeFront />
+    // </svg>
+    <motion.g {...otherProps}>
+      {/* Back */}
       <motion.path
-        {...props}
-        className={styles.backOpening}
+        className={isFront ? styles.hide : styles.pipeBody}
+        d={backPipeBody.svgPath}
+      />
+      <motion.path
+        className={isFront ? styles.hide : styles.pipeRing}
+        d={headPipeRingBody.svgPath}
+      />
+      <motion.path
+        className={isFront ? styles.hide : styles.backInnerFace}
+        d={headInnerFace.svgPath}
+      />
+      <motion.path
+        className={isFront ? styles.hide : styles.backInnerShadow}
+        d={headInnerShadow.svgPath}
+      />
+      <motion.path
+        className={isFront ? styles.hide : styles.backOpening}
+        d={headBackRingFace.svgPath}
+      />
+      {/* Front */}
+      <motion.path
+        className={isBack ? styles.hide : styles.backOpening}
         d={backBackRingFace.svgPath}
       />
       <motion.path
-        {...props}
-        className={styles.pipeRing}
+        className={isBack ? styles.hide : styles.pipeRing}
         d={backPipeRingBody.svgPath}
       />
       <motion.path
-        {...props}
-        className={styles.pipeRing}
+        className={isBack ? styles.hide : styles.pipeRing}
         d={backPipeRingEnd.svgPath}
       />
       <motion.path
-        {...props}
-        className={styles.frontOpening}
+        className={isBack ? styles.hide : styles.frontOpening}
         d={backFrontRingFace.svgPath}
       />
       <motion.path
-        {...props}
-        className={styles.pipeBody}
+        className={isBack ? styles.hide : styles.pipeBody}
         d={mainPipeBody.svgPath}
       />
       <motion.path
-        {...props}
-        className={styles.pipeEnd}
+        className={isBack ? styles.hide : styles.pipeEnd}
         d={mainPipeEnd.svgPath}
       />
       <motion.path
-        {...props}
-        className={styles.pipeRing}
+        className={isBack ? styles.hide : styles.pipeRing}
         d={headPipeRingEnd.svgPath}
       />
       <motion.path
-        {...props}
-        className={styles.frontOpening}
+        className={isBack ? styles.hide : styles.frontOpening}
         d={headFrontRingFace.svgPath}
       />
     </motion.g>
-  );
-}
-
-export default function WarpPipe() {
-  return (
-    <svg viewBox="-400 -200 800 400">
-      <WarpPipeBack />
-      <WarpPipeFront />
-    </svg>
   );
 }

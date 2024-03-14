@@ -1,8 +1,9 @@
 import { useArc, useCircle, useSquare } from "react-use-polygon";
-import { animate, delay, motion, transform } from "framer-motion";
+import { motion } from "framer-motion";
 
 import styles from "./styles.module.css";
-import WarpPipe, { WarpPipeBack, WarpPipeFront } from "./WarpPipe";
+import WarpPipe from "./WarpPipe";
+import MovingPolygon from "./MovingPrimitive";
 
 const circles = Array(40)
   .fill(0)
@@ -54,6 +55,7 @@ export default function TransitionTunnel() {
     animate: (custom: number) => ({
       x: 600,
       scale: 1.0,
+      rotate: 60,
       transition: {
         repeat: Infinity,
         repeatDelay: 0.5,
@@ -64,7 +66,7 @@ export default function TransitionTunnel() {
 
   const warpPipeVariants = {
     animate: {
-      scale: [1.0, 0.5, 1.02, 1.0],
+      scale: [1.0, 1.0, 0.85, 1.1, 1.0, 1.0],
       transition: {
         repeat: Infinity,
         repeatDelay: 0.5,
@@ -88,14 +90,14 @@ export default function TransitionTunnel() {
               variants={tunnelRingVariants}
             />
           ))}
-          <WarpPipeBack animate="animate" variants={warpPipeVariants} />
+          <WarpPipe isBack animate="animate" variants={warpPipeVariants} />
           <motion.path
             d={square.svgPath}
             variants={primitiveVariants}
             initial="initial"
             animate="animate"
           />
-          <WarpPipeFront animate="animate" variants={warpPipeVariants} />
+          <WarpPipe isFront animate="animate" variants={warpPipeVariants} />
           {circles.map((circle) => (
             <motion.path
               key={circle + circleCount}
@@ -107,9 +109,9 @@ export default function TransitionTunnel() {
               variants={tunnelRingVariants}
             />
           ))}
+          <MovingPolygon sides={3} />
         </g>
       </svg>
-      <WarpPipe />
     </div>
   );
 }

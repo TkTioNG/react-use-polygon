@@ -28,3 +28,7 @@
   stroke: black;
   stroke-width: 5;
 }
+
+.hide {
+  opacity: 0;
+}
