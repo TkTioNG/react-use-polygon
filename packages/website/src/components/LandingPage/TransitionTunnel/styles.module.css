@@ -5,18 +5,40 @@
   right: 0;
   bottom: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  overflow: visible;
   padding: 2rem;
 }
 
 .tunnelLane {
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 5px solid black;
   width: 100%;
+  max-width: 1140px;
+  overflow: visible;
 }
 
 .tunnelRing {
   fill: none;
   stroke: white;
+  stroke-width: 1px;
+}
+
+.tunnelRingBack {
+  fill: none;
+  stroke: white;
+  stroke-width: 0.95px;
+  stroke-opacity: 0.9;
+}
+
+.tunnelRingFront {
+  fill: none;
+  stroke: white;
+  stroke-width: 1.05px;
+}
+
+.tunnelRingRed {
+  fill: none;
+  stroke: red;
   stroke-width: 1px;
 }

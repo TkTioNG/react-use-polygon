@@ -1,0 +1,30 @@
+.backOpening,
+.frontOpening {
+  fill: lightgrey;
+  stroke: none;
+}
+
+.backInnerFace {
+  fill: darkgrey;
+}
+
+.backInnerShadow {
+  fill: grey;
+}
+
+.pipeBody,
+.pipeEnd {
+  fill: darkred;
+  stroke: none;
+}
+
+.pipeRing {
+  fill: red;
+}
+
+.backOpeningInnerLine,
+.frontOpeningInnerLine {
+  fill: none;
+  stroke: black;
+  stroke-width: 5;
+}
