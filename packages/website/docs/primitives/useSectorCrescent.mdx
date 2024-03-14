@@ -1,0 +1,51 @@
+---
+---
+
+import SimpleUseSectorCrescent from "@site/src/components/docs/SimpleUseSectorCrescent";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# useSectorCrescent
+
+Hook used to create crescent sector of a circle.
+
+<SimpleUseSectorCrescent />
+
+## Configuration
+
+:::note
+
+`useSectorCrescent` will draw a sector counter-clockwise, starting from the right center position, as `useArc`.
+
+If you wish to create a sector facing to other side, please use `rotation`.
+
+:::
+
+**_(SectorCrescentConfig | undefined)_** `useSectorCrescent` accepts following configurations:
+
+| Property         |   Type   | Default | Description                        |
+| :--------------- | :------: | :-----: | :--------------------------------- |
+| `radius`         | `number` |  `100`  | Radius of outer arc of the sector. |
+| `crescentRadius` | `number` |  `0.6 * radius`  | Radius of inner arc of the sector. _(optional)_ |
+| `angle`          | `number` |  `60`   | Angle of the sector, in degrees.   |
+
+:::info
+
+If `crescentRadius` is not given, it will be default to `0.6 * radius`.
+
+However, when pass in `crescentRadius`, please use the exact number but not the ratio to `radius`.
+
+:::
+
+## Returns
+
+<PrimitiveReturns configType="SectorCrescentConfig" />
+
+## Example
+
+```tsx
+import { useSectorCrescent } from "react-use-polygon";
+
+const sectorCrescent = useSectorCrescent({ radius: 80, crescentRadius: 50, angle: 45, rotation: 30 });
+```

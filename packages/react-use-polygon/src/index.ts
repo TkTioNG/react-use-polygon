@@ -12,6 +12,7 @@ import useArc from "./primitives/useArc";
 import useCircle from "./primitives/useCircle";
 import useEllipse from "./primitives/useEllipse";
 import useSector from "./primitives/useSector";
+import useSectorCrescent from "./primitives/useSectorCrescent";
 import useSegment from "./primitives/useSegment";
 
 import useSVGViewBox from "./utilityHooks/useSVGViewBox";
@@ -36,6 +37,7 @@ export {
   useCircle,
   useEllipse,
   useSector,
+  useSectorCrescent,
   useSegment,
 
   /** Utility hooks */
@@ -61,4 +63,5 @@ export type {
 } from "./primitives/usePolygon";
 export type { RectangleConfig } from "./primitives/useRectangle";
 export type { SectorConfig } from "./primitives/useSector";
+export type { SectorCrescentConfig } from "./primitives/useSectorCrescent";
 export type { SegmentConfig } from "./primitives/useSegment";

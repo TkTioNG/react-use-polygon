@@ -32,7 +32,7 @@ export interface PrimitiveConfig {
   vertices: Vertex[];
   edges: Edge[];
   faces: Face[];
-  scale?: number | Vertex;
+  scale?: number | Partial<Vertex>;
   rotation?: number;
   position?: { x?: number; y?: number; z?: number };
   isClosed?: boolean;
@@ -47,7 +47,9 @@ export default function usePrimitive(
   const [vertices, setVertices] = useState<Vertex[]>(config?.vertices ?? []);
   const [edges, setEdges] = useState<Edge[]>(config?.edges ?? []);
   const [faces, setFaces] = useState<Face[]>(config?.faces ?? []);
-  const [scale, setScale] = useState<number | Vertex>(config?.scale ?? 1);
+  const [scale, setScale] = useState<number | Partial<Vertex>>(
+    config?.scale ?? 1
+  );
   const [rotation, setRotation] = useState<number>(config?.rotation ?? 0);
   const [position, setPosition] = useState<{
     x?: number;
@@ -86,8 +88,8 @@ export default function usePrimitive(
   }, [newEdges]);
 
   const svgPath = useMemo(() => {
-    return computePrimitiveSVGPath(newEdges, isClosed);
-  }, [newEdges, isClosed]);
+    return computePrimitiveSVGPath(newEdges, scale, isClosed);
+  }, [newEdges, scale, isClosed]);
 
   const drawOnCanvas = useCallback(
     (ctx: CanvasRenderingContext2D) =>

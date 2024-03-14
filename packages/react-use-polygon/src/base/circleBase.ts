@@ -1,14 +1,16 @@
-import { ArcSegment, CurveSegment, Edge, Vertex } from "../types";
+import { ArcSegment, CurveSegment, Edge, LineSegment, Vertex } from "../types";
 import { normalizeDegAngle } from "./common";
 import { computePolygonEdges } from "./polygonBase";
 
 export function computeArcEdges({
   radius,
+  crescentRadius,
   angle,
   vertices,
   rotation,
 }: {
   radius: number;
+  crescentRadius?: number;
   angle: number;
   vertices?: Vertex[];
   rotation?: number;
@@ -47,6 +49,30 @@ export function computeArcEdges({
 
   edges.push(arcSegment);
 
+  if (crescentRadius) {
+    const crescentStart = {
+      x: crescentRadius * Math.cos(normalizedAngle),
+      y: -crescentRadius * Math.sin(normalizedAngle),
+    };
+    const connectLine: LineSegment = {
+      type: "line",
+      start: { ...arcSegment.end },
+      end: { ...crescentStart },
+    };
+    const crescentArcSegment: ArcSegment = {
+      type: "arc",
+      start: crescentStart,
+      end: { x: crescentRadius, y: 0 },
+      radius: crescentRadius,
+      angle: normalizedAngle, // Use by svg path, angle of the arc
+      origin: { x: 0, y: 0 },
+      startAngle: 0 + normalizeRotation, // Staring angle from the positive x-axis
+      endAngle: normalizedAngle + normalizeRotation, // Ending angle from the positive x-axis
+      isCrescent: true,
+    };
+    edges.push(connectLine, crescentArcSegment);
+  }
+  console.log(edges);
   return edges;
 }
 

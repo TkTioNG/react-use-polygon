@@ -44,6 +44,7 @@ export interface ArcSegment {
   origin: Vertex;
   startAngle: number; // Staring angle from the positive x-axis
   endAngle: number; // Ending angle from the positive x-axis
+  isCrescent?: boolean; // Is an inner crescent arc
 }
 
 /**

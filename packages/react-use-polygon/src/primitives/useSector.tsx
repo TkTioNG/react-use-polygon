@@ -4,7 +4,7 @@ import { useArcBase, ArcBaseConfig } from "./useArc";
 import { ModifyConfig } from "../types";
 
 export interface SectorConfig
-  extends Omit<ArcBaseConfig, "vertices" | "isClosed"> {}
+  extends Omit<ArcBaseConfig, "vertices" | "crescentRadius" | "isClosed"> {}
 
 export default function useSector(
   config?: SectorConfig

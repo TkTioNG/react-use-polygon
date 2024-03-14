@@ -7,7 +7,7 @@ export function computeVertexTransformation(
     rotation,
     position,
   }: {
-    scale?: number | Vertex;
+    scale?: number | Partial<Vertex>;
     rotation?: number;
     position?: { x?: number; y?: number; z?: number };
   } = {}
@@ -180,6 +180,7 @@ export default function computePrimitiveBoundingBox(
 
 export function computePrimitiveSVGPath(
   edges: Edge[],
+  scale: number | Partial<Vertex>,
   isClosed: boolean = true
 ): string {
   let path = "";
@@ -191,9 +192,15 @@ export function computePrimitiveSVGPath(
       } else if (edge.type === "curve") {
         path += `C ${edge.c1.x},${edge.c1.y} ${edge.c2.x},${edge.c2.y} ${edge.end.x},${edge.end.y} `;
       } else if (edge.type === "arc") {
-        path += `A ${edge.radius},${edge.radius} 0 ${
-          edge.angle > Math.PI ? 1 : 0
-        } 0  ${edge.end.x},${edge.end.y} `;
+        const scaleValue =
+          typeof scale === "number"
+            ? { x: scale, y: scale }
+            : { x: scale?.x ?? 1, y: scale?.y ?? 1 };
+        path += `A ${edge.radius * scaleValue.y},${
+          edge.radius * scaleValue.x
+        } 0 ${edge.angle > Math.PI ? 1 : 0} ${edge.isCrescent ? 1 : 0}  ${
+          edge.end.x
+        },${edge.end.y} `;
       }
     });
   }
@@ -230,7 +237,7 @@ export function drawPrimitiveOnCanvas(
           edge.radius,
           edge.startAngle,
           edge.endAngle,
-          true
+          edge.isCrescent ? false : true
         );
       }
     });
