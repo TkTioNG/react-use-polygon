@@ -72,7 +72,6 @@ export function computeArcEdges({
     };
     edges.push(connectLine, crescentArcSegment);
   }
-  console.log(edges);
   return edges;
 }
 
