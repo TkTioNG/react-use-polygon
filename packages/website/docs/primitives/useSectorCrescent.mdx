@@ -24,11 +24,13 @@ If you wish to create a sector facing to other side, please use `rotation`.
 
 **_(SectorCrescentConfig | undefined)_** `useSectorCrescent` accepts following configurations:
 
-| Property         |   Type   | Default | Description                        |
-| :--------------- | :------: | :-----: | :--------------------------------- |
-| `radius`         | `number` |  `100`  | Radius of outer arc of the sector. |
-| `crescentRadius` | `number` |  `0.6 * radius`  | Radius of inner arc of the sector. _(optional)_ |
-| `angle`          | `number` |  `60`   | Angle of the sector, in degrees.   |
+| Property         |   Type   |    Default     | Description                                     |
+| :--------------- | :------: | :------------: | :---------------------------------------------- |
+| `radius`         | `number` |     `100`      | Radius of outer arc of the sector.              |
+| `crescentRadius` | `number` | `0.6 * radius` | Radius of inner arc of the sector. _(optional)_ |
+| `angle`          | `number` |      `60`      | Angle of the sector, in degrees.                |
+
+<PrimitiveConfig />
 
 :::info
 
@@ -47,5 +49,10 @@ However, when pass in `crescentRadius`, please use the exact number but not the 
 ```tsx
 import { useSectorCrescent } from "react-use-polygon";
 
-const sectorCrescent = useSectorCrescent({ radius: 80, crescentRadius: 50, angle: 45, rotation: 30 });
+const sectorCrescent = useSectorCrescent({
+  radius: 80,
+  crescentRadius: 50,
+  angle: 45,
+  rotation: 30,
+});
 ```

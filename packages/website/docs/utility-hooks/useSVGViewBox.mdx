@@ -1,0 +1,112 @@
+---
+---
+
+import SimpleUseArc from "@site/src/components/docs/SimpleUseArc";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# useSVGViewBox
+
+Hook used to generate and manipulate value for the `viewBox` property of an `<svg />` element.
+
+You are not required to use this hooks for your `<svg />` element.
+However, this hooks can help you to maintain the `viewBox` property, so you no need to hardcode it yourself.
+
+## Configuration
+
+`useSVGViewBox` accepts 2 arguments:
+
+| Property         |            Type            |  Default   | Description                         |
+| :--------------- | :------------------------: | :--------: | :---------------------------------- |
+| `primitives`     |      `PrimitivesLike`      | `required` | Primitive(s) inside the `viewBox`.  |
+| `viewBoxOptions` | `ComputeSVGViewBoxOptions` |    `{}`    | Options to construct the `viewBox`. |
+
+1. **_(PrimitivesLike)_** `primitives`
+
+**Type Declaration**: `Primitive | { boundingBox: BoundingBox } | (Primitive | { boundingBox: BoundingBox })[]` _(required)_
+
+It can be a primitive or an object with `boundingBox` property, or an array of them.
+
+**Example:**
+
+```tsx
+const circle = useCircle();
+const { boundingBox } = useSquare();
+
+const primitivesLike = circle;
+// or
+const primitivesLike = { boundingBox };
+// or an array of primitives like
+const primitivesLike = [circle, { boundingBox }];
+```
+
+2. **_(ComputeSVGViewBoxOptions)_** `viewBoxOptions`
+
+| Property  |                                                             Type                                                             |   Default   | Description                                     |
+| :-------- | :--------------------------------------------------------------------------------------------------------------------------: | :---------: | :---------------------------------------------- |
+| `padding` | `number` <br /> `\| { x?: number; y?: number }` <br /> `\| { top?: number; left?: number; right?: number; bottom?: number }` | `undefined` | Padding of the view box around the svg path(s). |
+| `x`       |                                                           `number`                                                           | `undefined` | Origin x value of the view box.                 |
+| `y`       |                                                           `number`                                                           | `undefined` | Origin y value of the view box.                 |
+| `width`   |                                                           `number`                                                           | `undefined` | Width of the view box.                          |
+| `height`  |                                                           `number`                                                           | `undefined` | Height of the view box.                         |
+
+Custom configurations to manipulate the view box using `padding`.
+By default, if none of the properties are given, the `viewBox` will be exactly the same from `boundingBox`.
+
+:::tip
+
+When you using `stroke` and `strokeWidth` properties in `<path />` element, you may notice that the stroke is being trimmed.
+You can set a `padding` so the the path looked nice in the center.
+
+If multiple primitives are given, `useSVGViewBox` will merged all them in the plane, and compute one `viewBox` to accomodate all of them.
+
+:::
+
+:::note
+
+If **all** `x`, `y`, `width`, and `height` are given, then `useSVGViewBox` will generate `viewBox` based on that instead.
+
+But that would required all four of them are given. If one of them is incomplete, they all be ignored.
+
+:::
+
+**Example:**
+
+```tsx
+const viewBoxOptions = { padding: 50 };
+// or using vertical or horizontal padding
+const viewBoxOptions = { padding: { x: 20, y: 30 } };
+// or directional padding
+const viewBoxOptions = { padding: { top: 30, right: 20 } };
+// or hardcoding view box
+const viewBoxOptions = { x: -100, y: -100, width: 200, height: 200 };
+```
+
+## Returns
+
+**_(string)_** A string representation of `viewBox` property for `<svg />` element.
+
+## Example
+
+```tsx
+import { useCircle, useSVGViewBox } from "react-use-polygon";
+
+function Example() {
+  const { svgPath, boundingBox } = useCircle();
+  const viewBox = useSVGViewBox(
+    { boundingBox },
+    { padding: { x: 100, y: 50 } }
+  );
+
+  return (
+    <svg viewBox={viewBox}>
+      <path d={svgPath} />
+    </svg>
+  );
+}
+```
+
+## CommonJS Helper function
+
+`computeSVGViewBox` is the equivalent helper function for CommonJS, which accepts the same parameters.

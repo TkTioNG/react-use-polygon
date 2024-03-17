@@ -52,3 +52,20 @@
   font-display: swap;
   src: url("/fonts/SeaweedScript/SeaweedScript-Regular.ttf") format("truetype");
 }
+
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible {
+  font-weight: 700;
+}
+
+.theme-doc-sidebar-item-category-level-1
+  + .theme-doc-sidebar-item-category-level-1 {
+  margin-top: 1rem;
+}
+
+.navbar__item.navbar__link {
+  font-weight: 700;
+}
+
+.theme-doc-sidebar-menu.menu__list {
+  padding-bottom: 2rem;
+}

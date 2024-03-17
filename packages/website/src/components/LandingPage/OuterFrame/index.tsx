@@ -19,7 +19,7 @@ export default function OuterFrame() {
       <div className={styles.links}>
         <ul>
           <motion.li whileHover={{ translateX: 16 }}>
-            <Link to="/docs/getting-started">
+            <Link to="/docs/getting-started/installation">
               <FaBookmark />
               Documentation
             </Link>

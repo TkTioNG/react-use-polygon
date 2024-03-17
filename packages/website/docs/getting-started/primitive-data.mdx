@@ -24,7 +24,7 @@ Or for most of the time, you can use object destructuring to obtain the primitiv
 ```ts
 const triangle = useTriangle();
 
-// or 
+// or
 const { vertices: squareVertices } = useSquare();
 
 const { vertices: pentagonVertices } = usePentagon();
@@ -52,9 +52,9 @@ You may not need to use the vertices data when using `react-use-ploygon`, _which
 
 ```ts
 interface Vertex {
-  x: number
-  y: number
-  z?: number
+  x: number;
+  y: number;
+  z?: number;
 }
 ```
 
@@ -112,6 +112,7 @@ export interface ArcSegment {
   origin: Vertex;
   startAngle: number; // Staring angle from the positive x-axis
   endAngle: number; // Ending angle from the positive x-axis
+  isCrescent?: boolean; // Is an inner crescent arc
 }
 
 /**
@@ -176,10 +177,10 @@ const { boundingBox } = useRectangle({ width: 100, height: 50 })
 
 // boundingBox of that rectangle will be
 {
-  x: -50,    
-  y: 50,    
-  width: 100,    
-  height: 50,    
+  x: -50,
+  y: 50,
+  width: 100,
+  height: 50,
 }
 ```
 
@@ -218,7 +219,7 @@ For more details, please view [primitive reactivity](/docs/getting-started/creat
 
 ### Other properties
 
-For `svgPath` and `drawOnCanvas`, please view [rendering primitives](/docs/getting-started/rendering-primitives).
+For `svgPath` and `drawOnCanvas`, please view [rendering with SVG](/docs/getting-started/rendering-with-svg#rendering-with-svg) and [rendering on canvas](/docs/getting-started/rendering-on-canvas#drawoncanvas).
 
 :::tip For TypeScript lover
 

@@ -1,0 +1,44 @@
+---
+sidebar_position: 5
+sidebar_label: Rendering on canvas
+---
+
+import ExperimentalWarn from "@site/docs/_experimental_warn.mdx";
+
+# Rendering on canvas
+
+<ExperimentalWarn name="drawOnCanvas" />
+
+You can too render those primitives on a canvas. The primitive has a built-in callback, `drawOnCanvas`, that serve this exact purpose.
+
+## drawOnCanvas
+
+This callback takes in a `CanvasRenderingContext2D` canvas context and draw primitive on it.
+
+```tsx
+// Triangle primitive
+const { drawOnCanvas } = useTriangle();
+
+// Canvas ref
+const canvasRef = useRef();
+
+// Getting canvas context
+const ctx = canvasRef.current.getContext("2d");
+
+// Draw on canvas
+drawOnCanvas(ctx);
+
+// Add a stroke or fill or other operation as desired
+ctx.stroke(); // or ctx.fill();
+
+// Binding canvas to a ref
+<canvas ref={canvasRef} />;
+```
+
+:::info
+
+`drawOnCanvas` **does not** handle the drawing cycle for you. It will only draw **once** for each calls.
+
+If you want to constantly animate it, you will need to trigger `drawOnCanvas` on every frame or changes.
+
+:::

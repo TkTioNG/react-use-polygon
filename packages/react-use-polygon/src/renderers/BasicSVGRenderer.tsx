@@ -1,23 +1,26 @@
-import { SVGProps } from "react";
+import { ForwardedRef, SVGProps, forwardRef } from "react";
 import { Primitive } from "../primitives/usePrimitive";
 import useSVGViewBox from "../utilityHooks/useSVGViewBox";
 import { ComputeSVGViewBoxOptions } from "../helperFunctions/computeSVGViewBox";
 
-export default function BasicSVGRenderer({
-  primitives,
-  pathProps = {},
-  viewBoxOptions = {},
-  children,
-  ...svgProps
-}: {
-  primitives: Primitive | Primitive[];
-  pathProps?: SVGProps<SVGPathElement>;
-  viewBoxOptions?: ComputeSVGViewBoxOptions;
-} & SVGProps<SVGSVGElement>) {
+export default forwardRef(function BasicSVGRenderer(
+  {
+    primitives,
+    pathProps = {},
+    viewBoxOptions = {},
+    children,
+    ...svgProps
+  }: {
+    primitives: Primitive | Primitive[];
+    pathProps?: SVGProps<SVGPathElement>;
+    viewBoxOptions?: ComputeSVGViewBoxOptions;
+  } & SVGProps<SVGSVGElement>,
+  ref?: ForwardedRef<SVGSVGElement>
+) {
   const svgViewBox = useSVGViewBox(primitives, viewBoxOptions);
 
   return (
-    <svg viewBox={svgViewBox} {...svgProps}>
+    <svg viewBox={svgViewBox} {...svgProps} ref={ref}>
       {Array.isArray(primitives) ? (
         <>
           {primitives.map((primitive) => (
@@ -34,4 +37,4 @@ export default function BasicSVGRenderer({
       {children}
     </svg>
   );
-}
+});

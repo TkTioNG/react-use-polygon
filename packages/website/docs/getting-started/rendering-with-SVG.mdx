@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-sidebar_label: Rendering Primitives
+sidebar_label: Rendering with SVG
 ---
 
 # Rendering Primitives
@@ -11,9 +11,10 @@ Unlike other frontend UI library, `react-use-polygon` **does not** render the pr
 `react-use-polygon` instead wishes to give you the flexibility by provide you minimum-opinionated [primitive data](/docs/getting-started/primitive-data#primitive-properties).
 To smoothen the process, you can utilize the primitive properties, includes: `svgPath`, `drawOnCanvas` and `boundingBox`.
 
-## Render with SVG
+## Rendering with SVG
 
-One of the most simplest way to visualize the primitives or even any other shapes on web is through svg image. Hence, `svgPath` and `boundingBox` properties of the primitive come in handy.
+One of the most simplest way to visualize the primitives or even any other shapes on web is through svg image.
+Hence, `svgPath` and `boundingBox` properties of the primitive come in handy.
 
 ### svgPath
 
@@ -122,7 +123,7 @@ const circle = useCircle({ radius: 100 });
 import { useCircle } from "react-use-polygon";
 
 // viewBox: "0 0 200 200"
-const circle = useCircle({ radius: 100, position: { x: 100, y: 100} });
+const circle = useCircle({ radius: 100, position: { x: 100, y: 100 } });
 ```
 
 As you can see that, adding a `position` config can move the polygon to you desired location on the plane.
@@ -149,7 +150,7 @@ export function MyComponent() {
       viewBoxOptions={{ padding: 8 }}
       // ... other SVG props
     />
-  )
+  );
 }
 ```
 
@@ -158,41 +159,5 @@ export function MyComponent() {
 Built-in renderers are very simple component that help you getting started easier. You don't even need to use them too.
 
 For more, please have a looks at [built-in renderers](/docs/renderers).
-
-:::
-
-## Render on canvas
-
-You can too render those primitives on a canvas. The primitive has a built-in callback, `drawOnCanvas`, that serve this exact purpose.
-
-### drawOnCanvas
-
-This callback takes in a `CanvasRenderingContext2D` canvas context and draw primitive on it.
-
-```tsx
-// Triangle primitive
-const { drawOnCanvas } = useTriangle();
-
-// Canvas ref
-const canvasRef = useRef();
-
-// Getting canvas context
-const ctx = canvasRef.current.getContext("2d");
-
-// Draw on canvas
-drawOnCanvas(ctx)
-
-// Add a stroke or fill or other operation as desired
-ctx.stroke(); // or ctx.fill();
-
-// Binding canvas to a ref
-<canvas ref={canvasRef} />
-```
-
-:::info 
-
-`drawOnCanvas` **does not** handle the drawing cycle for you. It will only draw **once** for each calls.
-
-If you want to constantly animate it, you will need to trigger `drawInCanvas` on every frame or changes.
 
 :::
