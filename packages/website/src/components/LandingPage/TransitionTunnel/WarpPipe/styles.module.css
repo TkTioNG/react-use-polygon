@@ -14,12 +14,12 @@
 
 .pipeBody,
 .pipeEnd {
-  fill: darkred;
+  fill: url(#mainPipeGradient);
   stroke: none;
 }
 
 .pipeRing {
-  fill: red;
+  fill: url(#outerRingGradient);
 }
 
 .backOpeningInnerLine,

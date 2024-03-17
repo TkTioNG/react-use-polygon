@@ -15,30 +15,12 @@
 .tunnelLane {
   width: 100%;
   max-width: 1140px;
+  min-width: 360px;
   overflow: visible;
 }
 
-.tunnelRing {
-  fill: none;
-  stroke: white;
-  stroke-width: 1px;
-}
-
-.tunnelRingBack {
-  fill: none;
-  stroke: white;
-  stroke-width: 0.95px;
-  stroke-opacity: 0.9;
-}
-
-.tunnelRingFront {
-  fill: none;
-  stroke: white;
-  stroke-width: 1.05px;
-}
-
-.tunnelRingRed {
-  fill: none;
-  stroke: red;
-  stroke-width: 1px;
+@media screen and (max-width: 720px) {
+  .tunnelLane {
+    transform: rotateZ(50deg);
+  }
 }

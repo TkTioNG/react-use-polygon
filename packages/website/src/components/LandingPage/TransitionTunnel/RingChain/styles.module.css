@@ -1,0 +1,18 @@
+.tunnelRing {
+  fill: none;
+  stroke: white;
+  stroke-width: 1px;
+}
+
+.tunnelRingBack {
+  fill: none;
+  stroke: white;
+  stroke-width: 0.95px;
+  stroke-opacity: 0.9;
+}
+
+.tunnelRingFront {
+  fill: none;
+  stroke: white;
+  stroke-width: 1.05px;
+}

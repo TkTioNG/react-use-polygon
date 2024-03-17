@@ -70,3 +70,47 @@
 .links a:hover {
   text-decoration: none;
 }
+
+.codeStyle {
+  font-family: "Seaweed Script";
+  font-weight: 400;
+  font-size: 2.5rem;
+  letter-spacing: 0.1rem;
+  position: absolute;
+  top: 6rem;
+  right: 2rem;
+  opacity: 0.8;
+  transform: rotateZ(0deg) rotateX(30deg) rotateY(30deg);
+}
+
+@media screen and (max-width: 916px) {
+  .codeStyle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .logoName {
+    width: 100%;
+    border-right-width: 0;
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .logoName svg {
+    min-width: 50px;
+  }
+
+  .description {
+    display: none;
+  }
+
+  .codeStyle {
+    display: block;
+    top: 14rem;
+    right: 0;
+    font-size: 1.5rem;
+    white-space: nowrap;
+    transform: rotateZ(32deg) rotateX(30deg) rotateY(30deg);
+  }
+}

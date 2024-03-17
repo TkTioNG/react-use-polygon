@@ -30,11 +30,10 @@ export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
     position: { x: -150 },
   });
   const headInnerShadow = useSegment({
-    radius: 50,
-    angle: 135,
-    scale: { y: 0.4 },
-    rotation: -30,
-    position: { x: -150 },
+    radius: 40,
+    angle: 225,
+    scale: { y: 1.8 },
+    position: { x: -150, y: -30 },
   });
   const backPipeBody = useRectangle({
     width: 300,
@@ -157,6 +156,30 @@ export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
         className={isBack ? styles.hide : styles.frontOpening}
         d={headFrontRingFace.svgPath}
       />
+      <defs>
+        <linearGradient id="mainPipeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#800000" />
+          <stop offset="10%" stopColor="#cc0000" />
+          <stop offset="25%" stopColor="#ff9999" />
+          <stop offset="40%" stopColor="#cc0000" />
+          <stop offset="60%" stopColor="#800000" />
+          <stop offset="100%" stopColor="#4d0000" />
+        </linearGradient>
+        <linearGradient
+          id="outerRingGradient"
+          x1="0%"
+          y1="0%"
+          x2="0%"
+          y2="100%"
+        >
+          <stop offset="0%" stopColor="#e60000" />
+          <stop offset="10%" stopColor="#ff3333" />
+          <stop offset="25%" stopColor="#ffcccc" />
+          <stop offset="35%" stopColor="#ff3333" />
+          <stop offset="60%" stopColor="#e60000" />
+          <stop offset="100%" stopColor="#800000" />
+        </linearGradient>
+      </defs>
     </motion.g>
   );
 }

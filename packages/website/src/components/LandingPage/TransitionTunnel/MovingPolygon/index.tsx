@@ -123,6 +123,8 @@ export default function MovingPolygon({
           duration: 4,
           ease: "linear",
         });
+      }
+      if (sc.current) {
         await an(
           sc.current,
           {
@@ -135,6 +137,8 @@ export default function MovingPolygon({
             ease: "linear",
           }
         );
+      }
+      if (sc.current) {
         await an(sc.current, ANIMATIONS[n].exit, {
           duration: 3,
           ease: "linear",

@@ -15,6 +15,7 @@ export default function OuterFrame() {
         react-use-polygon
       </h1>
       <div className={styles.description}>Polygon hooks for react</div>
+      <h1 className={styles.codeStyle}>{"usePolygon({ sides: n })"}</h1>
       <div className={styles.links}>
         <ul>
           <motion.li whileHover={{ translateX: 16 }}>
