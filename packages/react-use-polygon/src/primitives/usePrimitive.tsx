@@ -88,8 +88,8 @@ export default function usePrimitive(
   }, [newEdges]);
 
   const svgPath = useMemo(() => {
-    return computePrimitiveSVGPath(newEdges, scale, isClosed);
-  }, [newEdges, scale, isClosed]);
+    return computePrimitiveSVGPath(newEdges, scale, rotation, isClosed);
+  }, [newEdges, scale, rotation, isClosed]);
 
   const drawOnCanvas = useCallback(
     (ctx: CanvasRenderingContext2D) =>

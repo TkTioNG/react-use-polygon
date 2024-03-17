@@ -180,7 +180,8 @@ export default function computePrimitiveBoundingBox(
 
 export function computePrimitiveSVGPath(
   edges: Edge[],
-  scale: number | Partial<Vertex>,
+  scale: number | Partial<Vertex> = 1,
+  rotation: number = 0,
   isClosed: boolean = true
 ): string {
   let path = "";
@@ -196,11 +197,12 @@ export function computePrimitiveSVGPath(
           typeof scale === "number"
             ? { x: scale, y: scale }
             : { x: scale?.x ?? 1, y: scale?.y ?? 1 };
-        path += `A ${edge.radius * scaleValue.y},${
-          edge.radius * scaleValue.x
-        } 0 ${edge.angle > Math.PI ? 1 : 0} ${edge.isCrescent ? 1 : 0}  ${
-          edge.end.x
-        },${edge.end.y} `;
+        const radiusX = edge.radius * scaleValue.x;
+        const radiusY = edge.radius * scaleValue.y;
+
+        path += `A ${radiusX},${radiusY} ${rotation} ${
+          edge.angle > Math.PI ? 1 : 0
+        } ${edge.isCrescent ? 1 : 0}  ${edge.end.x},${edge.end.y} `;
       }
     });
   }
