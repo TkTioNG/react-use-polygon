@@ -60,7 +60,7 @@ const config: Config = {
           position: "left",
           label: "Docs",
         },
-        { to: "/demos", label: "Demos", position: "left" },
+        { to: "/docs/demos", label: "Demos", position: "left" },
         {
           href: "https://github.com/TkTioNG/react-use-polygon",
           label: "GitHub",
@@ -80,7 +80,7 @@ const config: Config = {
             },
             {
               label: "Demos",
-              to: "/demos",
+              to: "/docs/demos",
             },
           ],
         },
