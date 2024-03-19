@@ -42,12 +42,12 @@ jobs:
           cache: "pnpm"
       - name: Build website
         run: |
-          pnpm website build --no-minify
+          pnpm website build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './packages/website/build/'
+          path: "./packages/website/build/"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

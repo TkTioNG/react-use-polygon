@@ -9,7 +9,7 @@ export default function SVGPartiallySeenFixed() {
 
   return (
     <BasicSVGRenderer
-      className={styles.partiallySeen}
+      className={styles.partiallySeenFixed}
       primitives={circle}
       // highlight-next-line
       viewBox={viewBox}

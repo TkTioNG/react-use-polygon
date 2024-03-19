@@ -1,10 +1,10 @@
 .simpleDemo {
   background-color: var(--ifm-color-primary);
   border-radius: 16px;
+}
 
-  path {
-    stroke: var(--ifm-color-secondary);
-    stroke-width: 3;
-    fill: none;
-  }
+.simpleDemo path {
+  stroke: var(--ifm-color-secondary);
+  stroke-width: 3;
+  fill: none;
 }
