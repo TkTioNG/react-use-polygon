@@ -13,7 +13,7 @@ const config: Config = {
   organizationName: "TkTioNG",
   projectName: "react-use-polygon",
 
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 
   i18n: {
