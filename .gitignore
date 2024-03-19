@@ -23,3 +23,5 @@ yarn-error.log*
 
 # Example testing project
 packages/example
+
+coverage

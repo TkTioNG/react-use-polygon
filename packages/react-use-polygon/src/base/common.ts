@@ -1,3 +1,5 @@
+import { Vertex } from "../types";
+
 /**
  * Convert angle form degree to radiant.
  * @param {number} angle Angle in degree
@@ -30,4 +32,21 @@ export function normalizeRadAngle(angle: number) {
  */
 export function normalizeDegAngle(angle: number) {
   return normalizeRadAngle(degToRad(angle));
+}
+
+/**
+ * Check if they are likely same point.
+ * Because we use 1.9999 * 2Pi for 1 full circle,
+ * so starting point and ending point may differ very slightly.
+ *
+ * @param {Vertex} pointA Point A
+ * @param {Vertex} pointB Point B
+ * @returns {boolean} True if they are likely same point
+ */
+export function isLikelySamePoint(pointA: Vertex, pointB: Vertex) {
+  const deltaX = Math.abs(pointA.x - pointB.x);
+  const deltaY = Math.abs(pointA.y - pointB.y);
+  const deltaZ = Math.abs((pointA.z ?? 0) - (pointB.z ?? 0));
+
+  return deltaX < 0.001 && deltaY < 0.001 && deltaZ < 0.001;
 }

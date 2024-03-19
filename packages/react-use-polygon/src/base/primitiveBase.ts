@@ -4,11 +4,11 @@ export function computeVertexTransformation(
   vertex: Vertex,
   {
     scale,
-    rotation,
+    rotate,
     position,
   }: {
     scale?: number | Partial<Vertex>;
-    rotation?: number;
+    rotate?: number;
     position?: { x?: number; y?: number; z?: number };
   } = {}
 ): Vertex {
@@ -24,7 +24,7 @@ export function computeVertexTransformation(
   };
 
   // Rotate second
-  const radians = (rotation ?? 0) * (Math.PI / 180);
+  const radians = (rotate ?? 0) * (Math.PI / 180);
   newVertex = {
     x: Math.cos(radians) * newVertex.x - Math.sin(radians) * newVertex.y,
     y: Math.sin(radians) * newVertex.x + Math.cos(radians) * newVertex.y,
@@ -136,7 +136,7 @@ export default function computePrimitiveBoundingBox(
       points.push(edge.c1, edge.c2);
     }
     if (edge.type === "arc") {
-      // TODO: take in consideration of position, rotation and scale
+      // TODO: take in consideration of position, rotate and scale
       if (edge.angle > Math.PI / 2) {
         // Second, Third & Fourth quadrant
         points.push({
@@ -181,7 +181,7 @@ export default function computePrimitiveBoundingBox(
 export function computePrimitiveSVGPath(
   edges: Edge[],
   scale: number | Partial<Vertex> = 1,
-  rotation: number = 0,
+  rotate: number = 0,
   isClosed: boolean = true
 ): string {
   let path = "";
@@ -200,7 +200,7 @@ export function computePrimitiveSVGPath(
         const radiusX = edge.radius * scaleValue.x;
         const radiusY = edge.radius * scaleValue.y;
 
-        path += `A ${radiusX},${radiusY} ${rotation} ${
+        path += `A ${radiusX},${radiusY} ${rotate} ${
           edge.angle > Math.PI ? 1 : 0
         } ${edge.isCrescent ? 1 : 0}  ${edge.end.x},${edge.end.y} `;
       }

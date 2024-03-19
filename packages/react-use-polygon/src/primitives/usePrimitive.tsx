@@ -33,7 +33,7 @@ export interface PrimitiveConfig {
   edges: Edge[];
   faces: Face[];
   scale?: number | Partial<Vertex>;
-  rotation?: number;
+  rotate?: number;
   position?: { x?: number; y?: number; z?: number };
   isClosed?: boolean;
 }
@@ -50,7 +50,7 @@ export default function usePrimitive(
   const [scale, setScale] = useState<number | Partial<Vertex>>(
     config?.scale ?? 1
   );
-  const [rotation, setRotation] = useState<number>(config?.rotation ?? 0);
+  const [rotate, setRotate] = useState<number>(config?.rotate ?? 0);
   const [position, setPosition] = useState<{
     x?: number;
     y?: number;
@@ -62,11 +62,11 @@ export default function usePrimitive(
     (vertex: Vertex): Vertex => {
       return computeVertexTransformation(vertex, {
         scale,
-        rotation,
+        rotate,
         position: { x: position.x, y: position.y, z: position.z },
       });
     },
-    [position.x, position.y, position.z, rotation, scale]
+    [position.x, position.y, position.z, rotate, scale]
   );
 
   const newVertices: Vertex[] = useMemo(
@@ -88,8 +88,8 @@ export default function usePrimitive(
   }, [newEdges]);
 
   const svgPath = useMemo(() => {
-    return computePrimitiveSVGPath(newEdges, scale, rotation, isClosed);
-  }, [newEdges, scale, rotation, isClosed]);
+    return computePrimitiveSVGPath(newEdges, scale, rotate, isClosed);
+  }, [newEdges, scale, rotate, isClosed]);
 
   const drawOnCanvas = useCallback(
     (ctx: CanvasRenderingContext2D) =>
@@ -100,14 +100,14 @@ export default function usePrimitive(
   const modifyConfig = useCallback(
     (newConfig?: Partial<PrimitiveConfig>) => {
       setPosition(newConfig?.position ?? position);
-      setRotation(newConfig?.rotation ?? rotation);
+      setRotate(newConfig?.rotate ?? rotate);
       setScale(newConfig?.scale ?? scale);
       setIsClosed(newConfig?.isClosed ?? isClosed);
       setVertices(newConfig?.vertices ?? vertices);
       setEdges(newConfig?.edges ?? edges);
       setFaces(newConfig?.faces ?? faces);
     },
-    [position, rotation, scale, isClosed, vertices, edges, faces]
+    [position, rotate, scale, isClosed, vertices, edges, faces]
   );
 
   return {

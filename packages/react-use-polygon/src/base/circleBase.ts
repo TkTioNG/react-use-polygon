@@ -1,5 +1,5 @@
 import { ArcSegment, CurveSegment, Edge, LineSegment, Vertex } from "../types";
-import { normalizeDegAngle } from "./common";
+import { isLikelySamePoint, normalizeDegAngle } from "./common";
 import { computePolygonEdges } from "./polygonBase";
 
 export function computeArcEdges({
@@ -7,17 +7,19 @@ export function computeArcEdges({
   crescentRadius,
   angle,
   vertices,
-  rotation,
+  rotate,
+  isClosed = true,
 }: {
   radius: number;
   crescentRadius?: number;
   angle: number;
   vertices?: Vertex[];
-  rotation?: number;
+  rotate?: number;
+  isClosed?: boolean;
 }): Edge[] {
   // Convert angles to radian
   const normalizedAngle = normalizeDegAngle(angle);
-  const normalizeRotation = normalizeDegAngle(rotation ?? 0);
+  const normalizeRotation = normalizeDegAngle(rotate ?? 0);
 
   const edges: Edge[] = [];
 
@@ -71,6 +73,18 @@ export function computeArcEdges({
       isCrescent: true,
     };
     edges.push(connectLine, crescentArcSegment);
+  }
+  if (isClosed) {
+    const firstPoint = edges[0].start;
+    const lastPoint = edges[edges.length - 1].end;
+
+    if (!isLikelySamePoint(firstPoint, lastPoint)) {
+      edges.push({
+        type: "line",
+        start: { ...lastPoint },
+        end: { ...firstPoint },
+      });
+    }
   }
   return edges;
 }

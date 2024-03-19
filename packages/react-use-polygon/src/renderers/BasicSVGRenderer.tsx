@@ -1,3 +1,4 @@
+"use client";
 import { ForwardedRef, SVGProps, forwardRef } from "react";
 import { Primitive } from "../primitives/usePrimitive";
 import useSVGViewBox from "../utilityHooks/useSVGViewBox";

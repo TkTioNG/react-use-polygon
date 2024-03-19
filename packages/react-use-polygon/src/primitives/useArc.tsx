@@ -1,6 +1,6 @@
 "use client";
 import usePrimitive, { Primitive, PrimitiveConfig } from "./usePrimitive";
-import { Edge, ModifyConfig, Vertex } from "../types";
+import { Edge, Face, ModifyConfig, Vertex } from "../types";
 import { useCallback, useMemo, useState } from "react";
 import { computeArcEdges } from "../base/circleBase";
 
@@ -27,14 +27,24 @@ export function useArcBase(
   const [vertices, setVertices] = useState<Vertex[]>(config?.vertices ?? []);
 
   const edges: Edge[] = useMemo(() => {
-    return computeArcEdges({ radius, crescentRadius, angle, vertices });
-  }, [radius, crescentRadius, angle, vertices]);
+    return computeArcEdges({
+      radius,
+      crescentRadius,
+      angle,
+      vertices,
+      isClosed,
+    });
+  }, [radius, crescentRadius, angle, vertices, isClosed]);
+
+  const faces: Face[] = useMemo(() => {
+    return isClosed ? [edges] : [];
+  }, [edges, isClosed]);
 
   const { modifyConfig: modifyPrimitiveConfig, ...primitive } = usePrimitive({
     ...config,
     vertices,
     edges,
-    faces: [],
+    faces,
     isClosed,
   });
 
