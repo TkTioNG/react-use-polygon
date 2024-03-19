@@ -10,7 +10,7 @@ export default function SimpleUseSectorCrescent() {
   const majorSector = useSectorCrescent({
     radius: 120,
     angle: 285,
-    rotation: -75,
+    rotate: -75,
     position: { x: 200 },
   });
 
@@ -20,7 +20,7 @@ export default function SimpleUseSectorCrescent() {
         {"useSectorCrescent({ radius: 120, angle: 75 });"}
       </text>
       <text x="-165" y="184">
-        {"useSectorCrescent({ radius: 120, angle: 285, rotation: -75 });"}
+        {"useSectorCrescent({ radius: 120, angle: 285, rotate: -75 });"}
       </text>
     </DocsSVGRenderer>
   );

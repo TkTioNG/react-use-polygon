@@ -16,7 +16,7 @@ export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
     crescentRadius: 70,
     angle: 180,
     scale: { y: 0.4 },
-    rotation: -90,
+    rotate: -90,
     position: { x: -150 },
   });
   const headPipeRingBody = useRectangle({
@@ -46,14 +46,14 @@ export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
     crescentRadius: 70,
     angle: 180,
     scale: { y: 0.4 },
-    rotation: 90,
+    rotate: 90,
     position: { x: -150.5 },
   });
   const headPipeRingEnd = useSector({
     radius: 125,
     angle: 180,
     scale: { y: 0.4 },
-    rotation: 90,
+    rotate: 90,
     position: { x: -110.5 },
   });
   const mainPipeBody = useRectangle({
@@ -65,7 +65,7 @@ export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
     radius: 100,
     angle: 180,
     scale: { y: 0.3 },
-    rotation: 90,
+    rotate: 90,
     position: { x: 149 },
   });
   const backBackRingFace = useSectorCrescent({
@@ -73,7 +73,7 @@ export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
     crescentRadius: 70,
     angle: 180,
     scale: { y: 0.4 },
-    rotation: -90,
+    rotate: -90,
     position: { x: 150 },
   });
   const backFrontRingFace = useSectorCrescent({
@@ -81,7 +81,7 @@ export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
     crescentRadius: 70,
     angle: 180,
     scale: { y: 0.4 },
-    rotation: 90,
+    rotate: 90,
     position: { x: 149.5 },
   });
   const backPipeRingBody = useRectangle({
@@ -93,7 +93,7 @@ export default function WarpPipe({ isFront, isBack, ...otherProps }: any) {
     radius: 125,
     angle: 180,
     scale: { y: 0.4 },
-    rotation: 90,
+    rotate: 90,
     position: { x: 190 },
   });
   return (

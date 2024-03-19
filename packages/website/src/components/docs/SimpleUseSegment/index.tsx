@@ -10,7 +10,7 @@ export default function SimpleUseSegment() {
   const majorSegment = useSegment({
     radius: 120,
     angle: 240,
-    rotation: -120,
+    rotate: -120,
     position: { x: 200 },
   });
 
@@ -20,7 +20,7 @@ export default function SimpleUseSegment() {
         {"useSegment({ radius: 120, angle: 120 });"}
       </text>
       <text x="-105" y="184">
-        {"useSegment({ radius: 120, angle: 240, rotation: -120 });"}
+        {"useSegment({ radius: 120, angle: 240, rotate: -120 });"}
       </text>
     </DocsSVGRenderer>
   );

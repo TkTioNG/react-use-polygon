@@ -13,34 +13,34 @@ export default function WavyArc() {
   const { svgPath: a1 } = useArc({
     radius: 50,
     angle: 180,
-    rotation: 90,
+    rotate: 90,
     scale: { y: 0.2 },
     position: { y: -150 },
   });
   const { svgPath: a2 } = useArc({
     radius: 50,
     angle: 180,
-    rotation: -90,
+    rotate: -90,
     scale: { y: 0.2 },
     position: { y: -50 },
   });
   const { svgPath: a3 } = useArc({
     radius: 50,
     angle: 180,
-    rotation: 90,
+    rotate: 90,
     scale: { y: 0.2 },
     position: { y: 50 },
   });
   const { svgPath: a4 } = useArc({
     radius: 50,
     angle: 180,
-    rotation: -90,
+    rotate: -90,
     scale: { y: 0.2 },
     position: { y: 150 },
   });
 
   const gap = 20;
-  const pushOffset = 20;
+  const pushOffset = 25;
   const pullOffset = 5;
 
   const variants = {
@@ -54,7 +54,7 @@ export default function WavyArc() {
         custom * gap - pullOffset,
         custom * gap,
       ],
-      scale: [1.0, 1.04, 0.96, 1.0],
+      scale: [1.0, 1.1, 0.96, 1.0],
       opacity: [0.35, 0.9, 0.75, 0.35],
       transition: {
         delay: custom * 0.05,

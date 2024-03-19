@@ -13,12 +13,12 @@ export default function RingChain() {
   const { svgPath: backArcPath } = useArc({
     radius: 120,
     angle: 180,
-    rotation: -90,
+    rotate: -90,
   });
   const { svgPath: frontArcPath } = useArc({
     radius: 120,
     angle: 180,
-    rotation: 90,
+    rotate: 90,
   });
 
   const tunnelRingVariants = {
