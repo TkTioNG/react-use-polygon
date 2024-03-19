@@ -11,18 +11,18 @@ import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
 Hook used to generate and manipulate value for the `viewBox` property of an `<svg />` element.
 
 You are not required to use this hooks for your `<svg />` element.
-However, this hooks can help you to maintain the `viewBox` property, so you no need to hardcode it yourself.
+However, this hooks can help you to maintain the `viewBox` property, so you do no need to hardcode it yourself.
 
 ## Configuration
 
 `useSVGViewBox` accepts 2 arguments:
 
-| Property         |            Type            |  Default   | Description                         |
-| :--------------- | :------------------------: | :--------: | :---------------------------------- |
-| `primitives`     |      `PrimitivesLike`      | `required` | Primitive(s) inside the `viewBox`.  |
-| `viewBoxOptions` | `ComputeSVGViewBoxOptions` |    `{}`    | Options to construct the `viewBox`. |
+| Property         |            Type            |  Default   | Description                                      |
+| :--------------- | :------------------------: | :--------: | :----------------------------------------------- |
+| `primitives`     |      `PrimitivesLike`      | `required` | Primitive(s) inside the `viewBox`.               |
+| `viewBoxOptions` | `ComputeSVGViewBoxOptions` |    `{}`    | Options to construct the `viewBox` _(optional)_. |
 
-1. **_(PrimitivesLike)_** `primitives`
+### **_(PrimitivesLike)_** `primitives`
 
 **Type Declaration**: `Primitive | { boundingBox: BoundingBox } | (Primitive | { boundingBox: BoundingBox })[]` _(required)_
 
@@ -41,11 +41,11 @@ const primitivesLike = { boundingBox };
 const primitivesLike = [circle, { boundingBox }];
 ```
 
-2. **_(ComputeSVGViewBoxOptions)_** `viewBoxOptions`
+### **_(ComputeSVGViewBoxOptions)_** `viewBoxOptions`
 
 | Property  |                                                             Type                                                             |   Default   | Description                                     |
 | :-------- | :--------------------------------------------------------------------------------------------------------------------------: | :---------: | :---------------------------------------------- |
-| `padding` | `number` <br /> `\| { x?: number; y?: number }` <br /> `\| { top?: number; left?: number; right?: number; bottom?: number }` | `undefined` | Padding of the view box around the svg path(s). |
+| `padding` | `number` <br /> `\| { x?: number; y?: number }` <br /> `\| { top?: number; left?: number; right?: number; bottom?: number }` | `undefined` | Padding of the view box around the SVG path(s). |
 | `x`       |                                                           `number`                                                           | `undefined` | Origin x value of the view box.                 |
 | `y`       |                                                           `number`                                                           | `undefined` | Origin y value of the view box.                 |
 | `width`   |                                                           `number`                                                           | `undefined` | Width of the view box.                          |
@@ -57,9 +57,9 @@ By default, if none of the properties are given, the `viewBox` will be exactly t
 :::tip
 
 When you using `stroke` and `strokeWidth` properties in `<path />` element, you may notice that the stroke is being trimmed.
-You can set a `padding` so the the path looked nice in the center.
+You can set a `padding` so the the path looked nice in the centre.
 
-If multiple primitives are given, `useSVGViewBox` will merged all them in the plane, and compute one `viewBox` to accomodate all of them.
+If multiple primitives are given, `useSVGViewBox` will merge all them in the plane, and compute one `viewBox` to accommodate all of them.
 
 :::
 
@@ -67,7 +67,7 @@ If multiple primitives are given, `useSVGViewBox` will merged all them in the pl
 
 If **all** `x`, `y`, `width`, and `height` are given, then `useSVGViewBox` will generate `viewBox` based on that instead.
 
-But that would required all four of them are given. If one of them is incomplete, they all be ignored.
+But that will require all four of them are given. If one of them is incomplete, they all be ignored.
 
 :::
 

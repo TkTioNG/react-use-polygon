@@ -4,12 +4,13 @@ sidebar_label: Primitive data
 ---
 
 import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+import ExperimentalWarn from "@site/docs/_experimental_warn.mdx";
 
 # Primitive Data
 
-Primitive are the base data type of every primitive hooks in `react-use-polygon`.
+Primitive are the base data type return from every primitive hooks in `react-use-polygon`.
 
-It defines what is the primitive, how it should look like and enable you to extend or utilize it in your programme.
+It defines what is a primitive, how it should look like and enable you to extend or utilize it in your programme.
 
 ## Using the data
 
@@ -19,10 +20,10 @@ It defines what is the primitive, how it should look like and enable you to exte
 const triangle = useTriangle();
 ```
 
-Or for most of the time, you can use object destructuring to obtain the primitive data. If you are using multiple primitives, you can even rename them to avoid collision:
+Or you can use object destructuring to obtain the primitive data. If you are using multiple primitives, you can rename them to avoid collision:
 
 ```ts
-const triangle = useTriangle();
+const { vertices } = useTriangle();
 
 // or
 const { vertices: squareVertices } = useSquare();
@@ -48,7 +49,7 @@ Don't worry about those properties, they may look intimidating at first, but the
 
 Vertex is utterly the most important part when constructing a primitive in `react-use-polygon`. `vertices` is an array of all vertices of the primitive drawn. For example, a triangle will has three (3) vertices.
 
-You may not need to use the vertices data when using `react-use-ploygon`, _which this is what we opt to (an easy API)_, but it is still good to know that vertex is defined as:
+You may not need to use the `vertices` data when using `react-use-ploygon`, _which this is what we opt to (an easy API)_, but it is still good to know that vertex is defined as:
 
 ```ts
 interface Vertex {
@@ -60,7 +61,7 @@ interface Vertex {
 
 :::info
 
-Currently, `z` is kind of being ignored due to the fact that we only expose 2D api.
+Currently, `z` is kind of being ignored due to the fact that we only expose 2D API.
 
 However, in future we wish to add more complex 3D primitives to this library if possible.
 
@@ -108,7 +109,7 @@ export interface ArcSegment {
   start: Vertex;
   end: Vertex;
   radius: number;
-  angle: number; // Use by svg path, angle of the arc
+  angle: number; // Use by SVG path, angle of the arc
   origin: Vertex;
   startAngle: number; // Staring angle from the positive x-axis
   endAngle: number; // Ending angle from the positive x-axis
@@ -123,7 +124,7 @@ export type Edge = LineSegment | CurveSegment | ArcSegment;
 
 :::info
 
-Most of the times, you will not need to use edges directly, other than rendering the primitive.
+Most of the time, you will not need to use edges directly, other than rendering the primitive.
 
 We also try to provide built-in utility hooks and helper function built-in to let use process the primitive, without you to work on lower API yourself.
 
@@ -142,21 +143,32 @@ Faces are enclosed surfaces formed by `edges` of the primitive. They are an arra
 export type Face = Edge[];
 ```
 
-Again, like Edges, you're unlikely to use `faces` directly - it will more than likely be passed to a utility hook or helper function to get what you actually needed.
+Again, like `edges`, you're unlikely to use `faces` directly - you can pass it to an utility hook or helper function to get what you actually needed.
 
 :::note
 
-Currently, all hooks will only return at most one face as we only expose 2D primitve. Some primitive does not evenly has a face, even though they should for rendering perspective, but they may not make great mathematical sense.
+Currently, all hooks will only return at most one face as we only expose 2D primitives. Some primitives do not even have a face, even though they should for rendering perspective, but they may not make great mathematical sense.
 
 Hence, this may introduce culprits where the faces generated may not be what you expected.
 
 :::
 
+### Centroid
+
+**`Vertex`**
+
+<ExperimentalWarn
+  name="Primitive.centroid"
+  details="It may not generate correct centroid for arc/curve-like primitive."
+/>
+
+It defines the **_geometric centre_** of a primitive, or in physics, it can be considered as **_centre of gravity_**.
+
 ### Bounding Box
 
 **`BoundingBox`**
 
-It define the boundary or the dimension of the 2D primitive in a rectangular box.
+It defines the boundary or the dimension of the 2D primitive in a rectangular box.
 
 ```ts
 /**
@@ -184,17 +196,18 @@ const { boundingBox } = useRectangle({ width: 100, height: 50 })
 }
 ```
 
-In which, the `x` and `y` tell you the starting point of the drawing box and its respective `width` and `height` in a 2D spaces.
+In which, the `x` and `y` tell you the starting point of the drawing box and its respective `width` and `height` in a 2D space.
 
 :::info
 
-You may find it odd that the starting point of the box is from negative area. The reason is because the origin of drawing is _(0, 0)_ on the grid, hence, the left hand side of the primitive will be on the negative plane.
+You may find it odd that the starting point of the box is from negative area.
+It is due to the origin of drawing is _(0, 0)_ on the grid, hence, the left-hand and upper side of the primitive will be on the negative plane.
 
 :::
 
 :::note
 
-For **n-sides regular polygon** and circle related primitives, i.e. arc, sector, segment, it is first drawn from right and progress counterclosk-wise.
+For **n-sides regular polygon** and circle related primitives, i.e. arc, sector, segment, it is first drawn from right _(positive x-axis)_ and progress counterclockwise.
 
 **NOTE**: First drawn point mentioned here is **not** origin, but rather where the first point is plotted. Origin is always _(0, 0)_, even with `position` configuration, we only translate the primitive after drawn.
 
@@ -204,7 +217,7 @@ For **n-sides regular polygon** and circle related primitives, i.e. arc, sector,
 
 **`(newConfig: Partial<T>) => void`**
 
-It is a callback the allow you to update the configurations of the primitive. The `T` is the repective config type of the primitive, i.e. `useCircle` -> `CircleConfig`, `useTriangle` -> `NRegularPolygonConfig`.
+It is a callback that allow you to update the configurations of the primitive. The `T` is the respective config type of the primitive, i.e. `useCircle` -> `CircleConfig`, `useTriangle` -> `NRegularPolygonConfig`.
 
 ```ts
 const { modifyConfig } = useTriangle({ size: 100 });
@@ -213,9 +226,17 @@ const { modifyConfig } = useTriangle({ size: 100 });
 modifyConfig({ position: { x: 20, y: 50 } });
 ```
 
-You no need to pass every configurations into the callback, just the value that changed only. Other values will remains unchanged.
+You are not required to pass every configuration into the callback, just the value that changed only. Other values will remain unchanged.
 
 For more details, please view [primitive reactivity](/docs/getting-started/creating-primitives#reactivity).
+
+:::info
+
+Note that, the position value is following CSS, where going down on y-axis is a positive value, and vice versa, as opposed to Math plane.
+
+Hence, `{ position : { x: 20, y: 50 } }` will move the primitive **right** by 20 unit and **down** by 50 unit.
+
+:::
 
 ### Other properties
 
@@ -223,6 +244,6 @@ For `svgPath` and `drawOnCanvas`, please view [rendering with SVG](/docs/getting
 
 :::tip For TypeScript lover
 
-All the types that you may needed for your TypeScript project can be imported directly from `react-use-polygon`.
+All the types that you may need for your TypeScript project can be imported directly from `react-use-polygon`.
 
 :::

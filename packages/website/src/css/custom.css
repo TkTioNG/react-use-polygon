@@ -53,13 +53,13 @@
   src: url("/fonts/SeaweedScript/SeaweedScript-Regular.ttf") format("truetype");
 }
 
+.theme-doc-sidebar-item-link-level-1,
 .theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible {
   font-weight: 700;
 }
 
-.theme-doc-sidebar-item-category-level-1
-  + .theme-doc-sidebar-item-category-level-1 {
-  margin-top: 1rem;
+.theme-doc-sidebar-menu > li {
+  margin-bottom: 0.5rem;
 }
 
 .navbar__item.navbar__link {

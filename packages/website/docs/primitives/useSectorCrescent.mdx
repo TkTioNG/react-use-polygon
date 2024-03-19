@@ -16,9 +16,9 @@ Hook used to create crescent sector of a circle.
 
 :::note
 
-`useSectorCrescent` will draw a sector counter-clockwise, starting from the right center position, as `useArc`.
+`useSectorCrescent` will draw a sector counter-clockwise, starting from the right centre position, as `useArc`.
 
-If you wish to create a sector facing to other side, please use `rotation`.
+If you wish to create a sector facing to other side, please use `rotate`.
 
 :::
 
@@ -34,7 +34,7 @@ If you wish to create a sector facing to other side, please use `rotation`.
 
 :::info
 
-If `crescentRadius` is not given, it will be default to `0.6 * radius`.
+If `crescentRadius` is not given, it defaults to `0.6 * radius`.
 
 However, when pass in `crescentRadius`, please use the exact number but not the ratio to `radius`.
 
@@ -53,6 +53,6 @@ const sectorCrescent = useSectorCrescent({
   radius: 80,
   crescentRadius: 50,
   angle: 45,
-  rotation: 30,
+  rotate: 30,
 });
 ```

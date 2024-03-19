@@ -29,15 +29,15 @@ Multiple (chaining) lines can be created by providing a list of 3 or more vertic
 | `vertices` |      `Vertex[]`       |    `[]`     | Vertices that will form line(s). |
 | `length`   | `number \| undefined` | `undefined` | Length of a line.                |
 
-<PrimitiveConfig />
+:::info
 
-:::tip
-
-If vertices are provided, it will take precedence over length _and ignore it_.
+Among the configurations, only on of them is needed. If `vertices` are provided, it will **take precedence** over `length` _and ignore it_.
 
 However, at least of the properties must be given for `useLine` to work.
 
 :::
+
+<PrimitiveConfig />
 
 ## Returns
 

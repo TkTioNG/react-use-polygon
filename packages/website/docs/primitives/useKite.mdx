@@ -10,7 +10,7 @@ import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
 
 Hook used to a kite.
 
-It can be either a **convex** or **concave** kite. A **convex** kite is the usual kite, which every vertices points outward.
+It can be either a **convex** or **concave** kite. A **convex** kite is the usual kite, which every vertex points outward.
 
 On the other hand, a **concave** kite, the vertex of shorter sides are point inward, which will form a v-shape or upside-down dart.
 
@@ -30,7 +30,7 @@ On the other hand, a **concave** kite, the vertex of shorter sides are point inw
 
 :::tip
 
-You can create a dart/arrow by creating a **concave** kite and using `rotation` to change its pointing direction.
+You can create a dart/arrow by creating a **concave** kite and using `rotate` to change its pointing direction.
 
 :::
 
@@ -39,7 +39,7 @@ You can create a dart/arrow by creating a **concave** kite and using `rotation` 
 Multiple kites can be created by 2 same side lengths, either on the "slimmer" or "squarer" side.
 
 Right now, the implementation will always give **one same** kite by the same side lengths provided.
-We're thinking of adding an `angle` config to define the elevating angle of shorter side against the x-axis _(horizontal line)_, but hold it because it may not makes a great mathematical sense for creating a kite.
+We're thinking of adding an `angle` config to define the elevating angle of shorter side against the x-axis _(horizontal line)_, but hold it because it may not make a great mathematical sense for creating a kite.
 
 If you need to define that angle, please try [<code>usePolygon(\{ vertices \})</code>](/docs/primitives/usePolygon#configuration) instead, by defining the vertices yourself.
 
@@ -58,5 +58,5 @@ import { useKite } from "react-use-polygon";
 const kite = useKite({ length: 50, length: 75 });
 
 // A dart/arrow poiting right
-const arrow = useKite({ isConcave: true, rotation: 90 });
+const arrow = useKite({ isConcave: true, rotate: 90 });
 ```

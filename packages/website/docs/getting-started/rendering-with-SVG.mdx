@@ -1,7 +1,13 @@
 ---
 sidebar_position: 4
 sidebar_label: Rendering with SVG
+toc_max_heading_level: 4
 ---
+
+import CodeBlock from "@theme/CodeBlock";
+import SVGPartiallySeen from "@site/src/components/docs/SVGPartiallySeen";
+import SVGPartiallySeenFixed from "@site/src/components/docs/SVGPartiallySeenFixed";
+import SVGPartiallySeenFixedSource from "!!raw-loader!@site/src/components/docs/SVGPartiallySeenFixed";
 
 # Rendering Primitives
 
@@ -13,14 +19,14 @@ To smoothen the process, you can utilize the primitive properties, includes: `sv
 
 ## Rendering with SVG
 
-One of the most simplest way to visualize the primitives or even any other shapes on web is through svg image.
+One of the simplest ways to visualize the primitives is through SVG image.
 Hence, `svgPath` and `boundingBox` properties of the primitive come in handy.
 
 ### svgPath
 
 **`string`**
 
-As the name tells, it is a string representing a svg path and can be easily pass in as props for a `path` element.
+As the name tells, it is a string representing SVG path and can be easily pass in as props for a `path` element.
 
 ```tsx
 const { svgPath } = useCircle();
@@ -33,20 +39,25 @@ return (
 ```
 
 However, you may face a weird issue, which the primitive is not being rendered completely.
+
+**_i.e._** when using `useCircle`:
+
+<SVGPartiallySeen />
+
 The reason is simple, because the primitive is being drawn on origin _(0, 0)_ and some part may end up in the negative plane, [see more details](/docs/getting-started/primitive-data#bounding-box).
 
 You can either:
 
-1. Set the svg style to `overflow: visible` _**(not recommended)**_.
-2. Use `boundingBox` as the `viewBox` property of svg element.
+1. Set the SVG style to `overflow: visible` _**(not always recommended)**_.
+2. Use `boundingBox` as the `viewBox` property of SVG element.
 3. Clip entire polygon onto positive plane.
-4. Use a simple svg renderer.
+4. Use a simple SVG renderer _(to do them for you)_.
 
 Apart from 1, which we not recommend, 2, 3 and 4 can be done easily yourself, or using our built-in utilities.
 
-#### Create svg `viewBox` from `boundingBox`
+#### Create SVG `viewBox` from `boundingBox`
 
-You can transform a primitive `boundingBox` to svg `viewBox` by:
+You can transform a primitive `boundingBox` to SVG `viewBox` by:
 
 ```tsx
 const { x, y, width, height } = boundingBox;
@@ -55,7 +66,7 @@ const { x, y, width, height } = boundingBox;
 const viewBox = `${x} ${y} ${width} ${height}`;
 ```
 
-You can convert the above to a function or use our built-in hook:
+You can convert the above to a function or use our built-in utility hook:
 
 ```tsx
 import { useSquare, useSVGViewBox } from "react-use-polygon";
@@ -80,25 +91,36 @@ import { computeSVGViewBox } from "react-use-polygon";
 Rather than pass in the props as `{ boundingBox }`, you can pass in primitive or even an array or primitives as well.
 
 ```tsx
-const reactangle = useRectangle();
+const rectangle = useRectangle();
 const circle = useCircle({ position: { x: 50, y: 50 } });
 
 // Directly pass in primitive
-const viewBox = useSVGViewBox(reactangle);
+const viewBox = useSVGViewBox(rectangle);
 
 // Or multiple primitives
-const combinedViewBox = useSVGViewBox([reactangle, circle]);
+const combinedViewBox = useSVGViewBox([rectangle, circle]);
 ```
 
-Passing in an array is very helpful when you wish to render **multiple** primitive paths inside one svg element.
+Passing in an array is very helpful when you wish to render **multiple** primitive paths inside one SVG element.
 
 :::
 
+**Example** of using `useSVGViewBox`:
+
+<SVGPartiallySeenFixed />
+
+<details>
+  <summary>
+    View <code>useSVGViewBox</code> demo code
+  </summary>
+  <CodeBlock language="tsx">{SVGPartiallySeenFixedSource}</CodeBlock>
+</details>
+
 :::info
 
-`boundingBox` of primitive does not take into account of line stroke. Hence, when converted to svg `viewBox`, line stroke may only be partially shown.
+`boundingBox` of primitive does not take into account of line stroke. Hence, when converted to SVG `viewBox`, line stroke may only be partially shown.
 
-To fix this issue, you can utilize `padding` props in those function, which will make the box larger to accomodate the line stroke of svg path.
+To fix this issue, you can utilize `padding` props in those function, which will make the box larger to accommodate the line stroke of SVG path.
 
 Please refer [useSVGViewBox](/docs/utility-hooks/useSVGViewBox).
 
@@ -132,7 +154,7 @@ You can even hide part of the faces by moving them to negative plane if you don'
 
 #### Use a simple svg renderer
 
-You can create your own rendering component or use one of our built-in svg renderes.
+You can create your own rendering component or use one of our built-in SVG renderers.
 
 ```tsx
 import { usePolygon, BasicSVGRenderer } from "react-use-polygon";
@@ -158,6 +180,6 @@ export function MyComponent() {
 
 Built-in renderers are very simple component that help you getting started easier. You don't even need to use them too.
 
-For more, please have a looks at [built-in renderers](/docs/renderers).
+For more, please have a look at [built-in renderers](/docs/renderers/BasicSVGRenderer).
 
 :::

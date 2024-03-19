@@ -9,7 +9,7 @@ import ExperimentalWarn from "@site/docs/_experimental_warn.mdx";
 
 <ExperimentalWarn name="drawOnCanvas" />
 
-You can too render those primitives on a canvas. The primitive has a built-in callback, `drawOnCanvas`, that serve this exact purpose.
+You can render those primitives on a canvas. The primitive has a built-in callback, `drawOnCanvas`, that serve this exact purpose.
 
 ## drawOnCanvas
 
@@ -37,7 +37,7 @@ ctx.stroke(); // or ctx.fill();
 
 :::info
 
-`drawOnCanvas` **does not** handle the drawing cycle for you. It will only draw **once** for each calls.
+`drawOnCanvas` **does not** handle the drawing cycle for you. It will only draw **once** for each call.
 
 If you want to constantly animate it, you will need to trigger `drawOnCanvas` on every frame or changes.
 

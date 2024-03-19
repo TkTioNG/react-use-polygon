@@ -1,0 +1,129 @@
+---
+---
+
+import SimpleUseArc from "@site/src/components/docs/SimpleUseArc";
+import PolygonProps from "@site/docs/primitives/_polygonProps.mdx";
+import PrimitiveConfig from "@site/docs/primitives/_primitiveConfig.mdx";
+import PrimitiveReturns from "@site/docs/primitives/_primitiveReturns.mdx";
+
+# BasicSVGRenderer
+
+A built-in `<svg />` element wrapper component, that helps user to render primitive(s) easily.
+
+You are not required to use this renderer.
+This is a simple wrapper element for you to get start faster.
+
+## Configuration
+
+`BasicSVGRenderer` accepts below properties:
+
+| Property         |             Type              |   Default   | Description                                                               |
+| :--------------- | :---------------------------: | :---------: | :------------------------------------------------------------------------ |
+| `primitives`     |  `Primitive \| Primitive[]`   | `required`  | Primitive(s) inside the `viewBox`.                                        |
+| `pathProps`      |  `SVGProps<SVGPathElement>`   |    `{}`     | Props for the `<path />` element(s). _(optional)_                         |
+| `viewBoxOptions` |  `ComputeSVGViewBoxOptions`   |    `{}`     | Options to construct the `viewBox` of the `<svg />` element. _(optional)_ |
+| `ref`            | `ForwardedRef<SVGSVGElement>` | `undefined` | React `ref` to the `<svg />` element. _(optional)_                        |
+
+### `extends` `SVGProps<SVGSVGElement>`
+
+Any other props will be pass to the `<svg />` element generated.
+
+:::info
+
+`BasicSVGRenderer` generate `viewBox` using `useSVGViewBox` under the hood. Hence, you can manipulate the `viewBox` using `viewBoxOptions`.
+
+For more details, please view [useSVGViewBox - `viewBoxOptions`](/docs/utility-hooks/useSVGViewBox#computesvgviewboxoptions-viewboxoptions).
+
+:::
+
+:::note
+
+As this using hooks under the hood, hence, it is a **client** component.
+
+:::
+
+## Example
+
+Basic usage:
+
+```tsx
+import { useCircle, BasicSVGRenderer } from "react-use-polygon";
+
+function Example() {
+  const circle = useCircle();
+
+  return <BasicSVGRenderer primitives={circle} />;
+}
+```
+
+### Multiple primitives
+
+You can render multiple primitives in one `<svg />` element too:
+
+```tsx
+import { useCircle, BasicSVGRenderer } from "react-use-polygon";
+
+function Example() {
+  const c1 = useCircle();
+  const c2 = useCircle();
+  const c3 = useCircle();
+
+  return <BasicSVGRenderer primitives={[c1, c2, c3]} />;
+}
+```
+
+### Custom props
+
+You can pass in custom props to the `<svg />` element, or `<path />` element using `pathProps`, or even extra children:
+
+```tsx
+import { useCircle, BasicSVGRenderer } from "react-use-polygon";
+
+function Example() {
+  const circle = useCircle();
+
+  return (
+    <BasicSVGRenderer
+      primitives={circle}
+      className="MySVGElement" // Will be pass to <svg />
+      pathProps={{ fill: "white", stroke: "url(#redGradient)" }} // Will be pass to <path />
+    >
+      {"/* Or any children here */"}
+      <text x="210" y="72">
+        A red circle
+      </text>
+      <defs>
+        <linearGradient id="redGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#800000" />
+          <stop offset="50%" stopColor="#cc0000" />
+          <stop offset="100%" stopColor="#4d0000" />
+        </linearGradient>
+      </defs>
+    </BasicSVGRenderer>
+  );
+}
+```
+
+### useRef
+
+Lastly, you can pass in the ref object from `useRef` to reference the node element. This can be useful if you wish to animate or manipulate it.
+
+**i.e.**, using `framer-motion`:
+
+```tsx
+import { useLayoutEffect } from "react-use-polygon";
+import { useCircle, BasicSVGRenderer } from "react-use-polygon";
+import { useAnimate } from "framer-motion";
+
+function Example() {
+  const circle = useCircle();
+
+  const [scope, animate] = useAnimate();
+
+  useLayoutEffect(() => {
+    animate(scope.current, { scale: [0, 1] }, { duration: 1 });
+  }, []);
+
+  return <BasicSVGRenderer primitives={circle} ref={scope} />;
+}
+```
