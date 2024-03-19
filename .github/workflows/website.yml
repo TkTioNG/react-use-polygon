@@ -42,7 +42,7 @@ jobs:
           cache: "pnpm"
       - name: Build website
         run: |
-          pnpm website build
+          pnpm website build --no-minify
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
