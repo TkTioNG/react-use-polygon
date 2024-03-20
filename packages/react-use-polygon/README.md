@@ -1,6 +1,6 @@
 # react-use-polygon
 
-![landing-page.png](./packages/website/static/img/landing-page.png)
+![landing-page.png](https://raw.githubusercontent.com/TkTioNG/react-use-polygon/master/packages/website/static/img/landing-page.png)
 
 ## What is react-use-polygon?
 
