@@ -2,17 +2,18 @@
 import usePrimitive, { Primitive, PrimitiveConfig } from "./usePrimitive";
 import { CurveSegment, Edge } from "../types";
 import useCircle from "./useCircle";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+import { CubicBezier } from "../base/bezierBase";
 
-interface ArcConfig
+interface BezierArcConfig
   extends Omit<PrimitiveConfig, "vertices" | "edges" | "faces" | "isClosed"> {
   radius?: number;
   startAngle?: number;
   endAngle?: number;
 }
 
-export default function useBezierArc(config?: ArcConfig): Primitive & {
-  modifyConfig: (newConfig?: Partial<ArcConfig>) => void;
+export default function useBezierArc(config?: BezierArcConfig): Primitive & {
+  modifyConfig: (newConfig?: Partial<BezierArcConfig>) => void;
 } {
   const radius = config?.radius ?? 100;
   const circlePrimitive = useCircle({ radius: config?.radius });
@@ -43,7 +44,7 @@ export default function useBezierArc(config?: ArcConfig): Primitive & {
         if (index > startQuadrant && index < endQuadrant) {
           includedSegments.push(segment);
         } else {
-          const bezier = new Bezier(
+          const bezier = new CubicBezier(
             segment.start,
             segment.c1,
             segment.c2,
@@ -90,7 +91,17 @@ export default function useBezierArc(config?: ArcConfig): Primitive & {
     isClosed: false,
   });
 
+  const modifyConfig = useCallback(
+    (newConfig?: Partial<BezierArcConfig>) => {
+      modifyPrimitiveConfig({
+        ...newConfig,
+      });
+    },
+    [modifyPrimitiveConfig]
+  );
+
   return {
     ...primitive,
+    modifyConfig,
   };
 }

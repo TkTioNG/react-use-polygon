@@ -97,4 +97,17 @@ export class CubicBezier {
     });
     return { mdist: mdist, mpos: mpos };
   }
+
+  /**
+   * @todo Update this
+   * @param t0
+   * @param t1
+   * @returns
+   */
+  split(t0: number, t1: number) {
+    console.log(t0, t1);
+    return {
+      points: [this.p0, this.p1, this.p2, this.p3],
+    };
+  }
 }

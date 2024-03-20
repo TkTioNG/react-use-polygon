@@ -50,18 +50,15 @@ export {
   BasicSVGRenderer,
 };
 
-export type * from "./types";
+export * from "./types";
 
-export type { ArcConfig } from "./primitives/useArc";
-export type { CircleConfig } from "./primitives/useCircle";
-export type { EllipseConfig } from "./primitives/useEllipse";
-export type { KiteConfig } from "./primitives/useKite";
-export type { LineConfig } from "./primitives/useLine";
-export type {
-  PolygonConfig,
-  NRegularPolygonConfig,
-} from "./primitives/usePolygon";
-export type { RectangleConfig } from "./primitives/useRectangle";
-export type { SectorConfig } from "./primitives/useSector";
-export type { SectorCrescentConfig } from "./primitives/useSectorCrescent";
-export type { SegmentConfig } from "./primitives/useSegment";
+export { ArcConfig } from "./primitives/useArc";
+export { CircleConfig } from "./primitives/useCircle";
+export { EllipseConfig } from "./primitives/useEllipse";
+export { KiteConfig } from "./primitives/useKite";
+export { LineConfig } from "./primitives/useLine";
+export { PolygonConfig, NRegularPolygonConfig } from "./primitives/usePolygon";
+export { RectangleConfig } from "./primitives/useRectangle";
+export { SectorConfig } from "./primitives/useSector";
+export { SectorCrescentConfig } from "./primitives/useSectorCrescent";
+export { SegmentConfig } from "./primitives/useSegment";
