@@ -1,7 +1,7 @@
 {
   "name": "react-use-polygon",
   "version": "0.0.9",
-  "description": "",
+  "description": "Simple React hooks to create polygon and geometry primitives for modern web UI.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -19,8 +19,24 @@
     "test": "jest",
     "build": "tsc --build"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "hooks",
+    "geometry",
+    "polygon",
+    "2D",
+    "UI",
+    "animation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TkTioNG/react-use-polygon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TkTioNG/react-use-polygon/issues"
+  },
+  "homepage": "https://github.com/TkTioNG/react-use-polygon",
+  "author": "TkTioNG",
   "peerDependencies": {
     "@types/react": ">=18",
     "react": ">=18",

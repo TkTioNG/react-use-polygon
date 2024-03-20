@@ -8,9 +8,25 @@
     "polygon": "pnpm --filter react-use-polygon",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "react",
+    "hooks",
+    "geometry",
+    "polygon",
+    "2D",
+    "UI",
+    "animation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TkTioNG/react-use-polygon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TkTioNG/react-use-polygon/issues"
+  },
+  "homepage": "https://github.com/TkTioNG/react-use-polygon",
+  "author": "TkTioNG",
+  "license": "MIT",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
